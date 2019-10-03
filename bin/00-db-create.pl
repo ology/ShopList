@@ -26,8 +26,7 @@ $sql = <<'SQL';
 CREATE TABLE shop_list (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     account_id INT NOT NULL,
-    name TEXT NOT NULL,
-    tags TEXT
+    name TEXT NOT NULL
 )
 SQL
 
@@ -39,6 +38,7 @@ CREATE TABLE item (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     account_id INT NOT NULL,
     name TEXT NOT NULL,
+    note TEXT,
     category TEXT
 )
 SQL
@@ -52,9 +52,7 @@ CREATE TABLE list_item (
     account_id INT NOT NULL,
     shop_list_id INT NOT NULL,
     item_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    note TEXT,
-    tags TEXT
+    quantity INT NOT NULL DEFAULT 1
 )
 SQL
 

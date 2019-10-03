@@ -18,12 +18,12 @@ my $sth = $dbh->prepare($sql) or die $dbh->errstr;
 $sth->execute() or die $dbh->errstr;
 my $data = $sth->fetchall_hashref('account');
 
-$sql = 'INSERT INTO shop_list (account_id, name, tags) VALUES (?, ?, ?)';
+$sql = 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 $sth = $dbh->prepare($sql) or die $dbh->errstr;
 
-$sth->execute( $data->{gene}{id}, 'Costco', 'bar,ber' ) or die $dbh->errstr;
-$sth->execute( $data->{gene}{id}, 'Safeway', 'bar' ) or die $dbh->errstr;
-$sth->execute( $data->{tabi}{id}, 'Costco', 'bar' ) or die $dbh->errstr;
-$sth->execute( $data->{tabi}{id}, 'Safeway', 'goo,ber' ) or die $dbh->errstr;
+$sth->execute( $data->{gene}{id}, 'Costco' ) or die $dbh->errstr;
+$sth->execute( $data->{gene}{id}, 'Safeway' ) or die $dbh->errstr;
+$sth->execute( $data->{tabi}{id}, 'Costco' ) or die $dbh->errstr;
+$sth->execute( $data->{tabi}{id}, 'Safeway' ) or die $dbh->errstr;
 
 $dbh->disconnect();
