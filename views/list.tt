@@ -5,8 +5,9 @@
             <input type="checkbox" name="active" id="active" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3">
             [% item.name %]
-<!--             <input type="text" name="new_tags" id="new_tags" placeholder="Tags" value="[% item.tags %]"> -->
-            <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
+    [% IF item.note %]
+            - [% item.note %]
+    [% END %]
             <input type="submit" name="submit" value="Update">
         </form>
     </li>
@@ -15,6 +16,7 @@
 <hr>
 <form name="new_item" action="/[% account %]/[% list %]/new_item" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="Item name">
+    <input type="text" name="new_note" id="new_note" placeholder="Note">
     <input type="text" name="new_category" id="new_category" placeholder="Category">
     <input type="submit" name="submit" value="New">
 </form>
@@ -25,6 +27,7 @@
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
             <input type="checkbox" name="active" id="active" value="[% item.id %]">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
+            <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="text" name="new_category" id="new_category" placeholder="Category" value="[% item.category %]">
             <input type="submit" name="submit" value="Update">
             <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
