@@ -10,18 +10,18 @@ use Dancer2::Plugin::Database;
 use Data::Dumper;
 
 use constant SQL0 => 'SELECT id FROM user WHERE account = ?';
-use constant SQL1 => 'SELECT shop_list.id, shop_list.name, shop_list.tags FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
-use constant SQL2 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, list_item.note, list_item.tags, item.name FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
-use constant SQL3 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, list_item.note, list_item.tags, item.name, item.category, item.id AS item_id FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.id = ?';
-use constant SQL4 => 'INSERT INTO shop_list (account_id, name, tags) VALUES (?, ?, ?)';
-use constant SQL5 => 'UPDATE shop_list SET name = ?, tags = ? WHERE id = ? AND account_id = ?';
-use constant SQL6 => 'DELETE FROM shop_list WHERE id = ? AND account_id = ?';
-use constant SQL7 => 'INSERT INTO item (account_id, name, category) VALUES (?, ?, ?)';
-use constant SQL8 => 'SELECT id, account_id, name, category FROM item WHERE account_id = ?';
-use constant SQL9 => 'DELETE FROM item WHERE id = ? AND account_id = ?';
-use constant SQL10 => 'UPDATE item SET name = ?, category = ? WHERE id = ? AND account_id = ?';
-use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity, note, tags) VALUES (?, ?, ?, ?, ?, ?)';
-use constant SQL12 => 'UPDATE list_item SET quantity = ?, tags = ?, note = ? WHERE id = ?';
+use constant SQL1 => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
+use constant SQL2 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
+use constant SQL3 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category, item.id AS item_id FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.id = ?';
+use constant SQL4 => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
+use constant SQL5 => 'UPDATE shop_list SET name = ? WHERE id = ?';
+use constant SQL6 => 'DELETE FROM shop_list WHERE id = ?';
+use constant SQL7 => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
+use constant SQL8 => 'SELECT id, account_id, name, note, category FROM item WHERE account_id = ?';
+use constant SQL9 => 'DELETE FROM item WHERE id = ?';
+use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ? WHERE id = ?';
+use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
+use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE id = ?';
 
 our $VERSION = '0.01';
@@ -112,14 +112,13 @@ post '/:account/new_list' => require_login sub {
 
     my $account = route_parameters->get('account');
     my $name    = body_parameters->get('new_name');
-    my $tags    = body_parameters->get('new_tags') || '';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
 
     if ( $name ) {
         my $sth = database->prepare(SQL4);
-        $sth->execute( $account, $name, $tags );
+        $sth->execute( $account, $name );
     }
 
     redirect '/';
@@ -137,13 +136,12 @@ post '/:account/:list/update_list' => require_login sub {
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
     my $name    = body_parameters->get('new_name');
-    my $tags    = body_parameters->get('new_tags') || '';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL5);
-    $sth->execute( $name, $tags, $list, $account );
+    $sth->execute( $name, $list );
 
     redirect '/';
 };
@@ -164,7 +162,7 @@ get '/:account/:list/delete_list' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL6);
-    $sth->execute( $list, $account );
+    $sth->execute($list);
 
     redirect '/';
 };
@@ -183,7 +181,6 @@ post '/:account/:list/:row/update_row' => require_login sub {
     my $row     = route_parameters->get('row');
     my $quant   = body_parameters->get('new_quantity') || 0;
     my $tags    = body_parameters->get('new_tags');
-    my $note    = body_parameters->get('new_note');
     my $active  = body_parameters->get('active');
 
     send_error( 'Not allowed', 403 )
@@ -191,7 +188,7 @@ post '/:account/:list/:row/update_row' => require_login sub {
 
     if ( $active && $quant > 0 ) {
         my $sth = database->prepare(SQL12);
-        $sth->execute( $quant, $tags, $note, $row );
+        $sth->execute( $quant, $row );
     }
     else {
         my $sth = database->prepare(SQL13);
@@ -243,6 +240,7 @@ post '/:account/:list/new_item' => require_login sub {
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
     my $name    = body_parameters->get('new_name');
+    my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
 
     send_error( 'Not allowed', 403 )
@@ -250,12 +248,12 @@ post '/:account/:list/new_item' => require_login sub {
 
     if ( $name ) {
         my $sth = database->prepare(SQL7);
-        $sth->execute( $account, $name, $cat );
+        $sth->execute( $account, $name, $note, $cat );
 
         my $item_id = database->sqlite_last_insert_rowid;
 
         $sth = database->prepare(SQL11);
-        $sth->execute( $account, $list, $item_id, 1, '', '' );
+        $sth->execute( $account, $list, $item_id, 1 );
     }
 
     redirect "/$account/$list";
@@ -274,6 +272,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
     my $list    = route_parameters->get('list');
     my $item    = route_parameters->get('item');
     my $name    = body_parameters->get('new_name');
+    my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
     my $active  = body_parameters->get('active');
 
@@ -281,11 +280,11 @@ post '/:account/:list/:item/update_item' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL10);
-    $sth->execute( $name, $cat, $item, $account );
+    $sth->execute( $name, $note, $cat, $item );
 
     if ( $active ) {
         $sth = database->prepare(SQL11);
-        $sth->execute( $account, $list, $item, 1, '', '' );
+        $sth->execute( $account, $list, $item, 1 );
     }
 
     redirect "/$account/$list";
@@ -309,7 +308,7 @@ get '/:account/:list/:item/delete_item' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL9);
-    $sth->execute( $item, $account );
+    $sth->execute($item);
 
     redirect "/$account/$list";
 };
