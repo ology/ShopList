@@ -7,6 +7,10 @@ li {
     list-style-type : none;
 }
 
+.pad_top {
+    margin-top : 1em;
+}
+
 #footer {
     clear: both;
     padding-top: 2em;
