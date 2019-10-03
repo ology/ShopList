@@ -73,6 +73,7 @@ get '/:account/:list' => require_login sub {
 
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
+    my $name    = query_parameters->get('name');
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -96,6 +97,7 @@ get '/:account/:list' => require_login sub {
         user    => $user->{account},
         account => $account,
         list    => $list,
+        name    => $name,
         data    => \@data,
         items   => \@items,
     };
