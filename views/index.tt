@@ -7,10 +7,10 @@
 [% FOR item IN data %]
     <li>
         <form name="update_list" action="/[% account %]/[% item.id %]/update_list" method="post">
-            <a href="/[% account %]/[% item.id %]?name=[% item.name %]" class="button">></a>
             <input type="text" name="new_name" id="new_name" placeholder="List name" value="[% item.name %]">
             <input type="submit" name="submit" value="Update">
             <a href="/[% account %]/[% item.id %]/delete_list" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
+            <a href="/[% account %]/[% item.id %]?name=[% item.name %]" class="button">></a>
         </form>
     </li>
 [% END %]
