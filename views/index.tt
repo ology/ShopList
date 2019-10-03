@@ -3,6 +3,7 @@
 <!--     <input type="text" name="new_tags" id="new_tags" placeholder="Tags"> -->
     <input type="submit" name="submit" value="New">
 </form>
+<p>
 <ul>
 [% FOR item IN data %]
     <li>
