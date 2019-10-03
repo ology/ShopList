@@ -1,6 +1,6 @@
 <form name="new_list" action="/[% account %]/new_list" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="List name">
-    <input type="text" name="new_tags" id="new_tags" placeholder="Tags">
+<!--     <input type="text" name="new_tags" id="new_tags" placeholder="Tags"> -->
     <input type="submit" name="submit" value="New">
 </form>
 <ul>
@@ -9,8 +9,7 @@
         <form name="update_list" action="/[% account %]/[% item.id %]/update_list" method="post">
             <a href="/[% account %]/[% item.id %]">></a>
             <input type="text" name="new_name" id="new_name" placeholder="List name" value="[% item.name %]">
-            -
-            <input type="text" name="new_tags" id="new_tags" placeholder="Tags" value="[% item.tags %]">
+<!--             - <input type="text" name="new_tags" id="new_tags" placeholder="Tags" value="[% item.tags %]"> -->
             <input type="submit" name="submit" value="Update">
             <a href="/[% account %]/[% item.id %]/delete_list" onclick="if(!confirm('Are you sure?')) return false;">x</a>
         </form>

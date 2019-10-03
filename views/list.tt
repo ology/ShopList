@@ -5,7 +5,7 @@
             <input type="checkbox" name="active" id="active" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3">
             [% item.name %]
-            <input type="text" name="new_tags" id="new_tags" placeholder="Tags" value="[% item.tags %]">
+<!--             <input type="text" name="new_tags" id="new_tags" placeholder="Tags" value="[% item.tags %]"> -->
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="submit" name="submit" value="Update">
         </form>
