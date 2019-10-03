@@ -23,6 +23,8 @@
 
 <div id="footer">
     Built by <a href="http://gene.ology.net/">Gene Boggs</a>
+    |
+    <a href="/logout">Logout</a>
 </div>
 
 </body>
