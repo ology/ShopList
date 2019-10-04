@@ -1,4 +1,4 @@
-<a href="/[% account %]" class="button"><</a>
+<a href="/" class="button"><</a>
 <ul>
 [% FOR item IN data %]
     <li>
