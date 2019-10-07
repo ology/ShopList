@@ -1,0 +1,14 @@
+<a href="/[% account %]/[% list %]" class="button"><</a>
+<h2>[% name %]</h2>
+<ul>
+[% FOR item IN data %]
+    <li>
+        [% item.quantity %]
+        [% item.name %]
+    [% IF item.note %]
+        - [% item.note %]
+    [% END %]
+    </li>
+[% END %]
+</ul>
+
