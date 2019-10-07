@@ -198,36 +198,6 @@ post '/:account/:list/:row/update_row' => require_login sub {
     redirect "/$account/$list";
 };
 
-
-=head2 /account/list/item
-
-Item page.
-
-=cut
-
-get '/:account/:list/:item' => require_login sub {
-    my $user = logged_in_user;
-
-    my $account = route_parameters->get('account');
-    my $list    = route_parameters->get('list');
-    my $item    = route_parameters->get('item');
-
-    send_error( 'Not allowed', 403 )
-        unless _is_allowed( $user->{account}, $account );
-
-    my $sth = database->prepare(SQL3);
-    $sth->execute( $account, $item );
-    my $data = $sth->fetchall_hashref('id');
-
-    template 'item' => {
-        user    => $user->{account},
-        account => $account,
-        list    => $list,
-        item    => $item,
-        data    => Dumper(values(%$data)),
-    };
-};
-
 =head2 /account/list/new_item
 
 Add an item.
