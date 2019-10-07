@@ -12,6 +12,7 @@ use Data::Dumper;
 use constant SQL0 => 'SELECT id FROM user WHERE account = ?';
 use constant SQL1 => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
 use constant SQL2 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
+use constant SQL3 => 'SELECT name FROM shop_list WHERE id = ?';
 use constant SQL4 => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL5 => 'UPDATE shop_list SET name = ? WHERE id = ?';
 use constant SQL6 => 'DELETE FROM shop_list WHERE id = ?';
@@ -164,6 +165,43 @@ get '/:account/:list/delete_list' => require_login sub {
     $sth->execute($list);
 
     redirect '/';
+};
+
+=head2 /account/list/print_list
+
+Show a printable page.
+
+=cut
+
+get '/:account/:list/print_list' => require_login sub {
+    my $user = logged_in_user;
+
+    my $account = route_parameters->get('account');
+    my $list    = route_parameters->get('list');
+
+    send_error( 'Not allowed', 403 )
+        unless _is_allowed( $user->{account}, $account );
+
+    my $sth = database->prepare(SQL2);
+    $sth->execute( $account, $list );
+    my $data = $sth->fetchall_hashref('id');
+
+    my %seen = ();
+    @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
+
+    my @data = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+
+    $sth = database->prepare(SQL3);
+    $sth->execute($list);
+    my $name = ( $sth->fetchrow_array )[0];
+
+    template 'print' => {
+        user    => $user->{account},
+        account => $account,
+        list    => $list,
+        name    => $name,
+        data    => \@data,
+    };
 };
 
 =head2 /account/list/row/update_row
