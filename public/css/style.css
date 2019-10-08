@@ -1,5 +1,6 @@
 body {
     margin : 0.5em;
+    background-color : #e6e6e6;
 }
 
 ul {
@@ -9,6 +10,10 @@ ul {
 
 li {
     list-style-type : none;
+}
+
+.button_light {
+    background-color : #d2f0f9;
 }
 
 .pad_top {
