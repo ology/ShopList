@@ -1,4 +1,4 @@
-<a href="/" class="button"><</a>
+<a href="/" class="button button-light"><</a>
 <a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
 [% IF data.size %]
 <ul>
