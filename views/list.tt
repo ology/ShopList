@@ -1,20 +1,24 @@
 <a href="/" class="button"><</a>
 <a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
+[% IF data.size %]
 <ul>
-[% FOR item IN data %]
+    [% FOR item IN data %]
     <li>
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="checkbox" name="active" id="active" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3">
             [% item.name %]
-    [% IF item.note %]
+        [% IF item.note %]
             - [% item.note %]
-    [% END %]
+        [% END %]
             <input type="submit" name="submit" value="Update" class="pad_top">
         </form>
     </li>
-[% END %]
+    [% END %]
 </ul>
+[% ELSE %]
+<p>No items yet.</p>
+[% END %]
 <hr>
 <form name="new_item" action="/[% account %]/[% list %]/new_item" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="Item name">
