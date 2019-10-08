@@ -16,8 +16,10 @@ li {
     background-color : #d2f0f9;
 }
 
-.pad_top {
-    margin-top : 1em;
+.border-rounded {
+    border-radius : 4px;
+    border : 1px solid #bbb;
+    padding : 2px;
 }
 
 #footer {

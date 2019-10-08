@@ -4,6 +4,7 @@
 <ul>
     [% FOR item IN data %]
     <li>
+        <div class="border-rounded">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="checkbox" name="active" id="active" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3">
@@ -11,8 +12,9 @@
         [% IF item.note %]
             - [% item.note %]
         [% END %]
-            <input type="submit" name="submit" value="Update" class="pad_top">
+            <input type="submit" name="submit" value="Update">
         </form>
+        </div>
     </li>
     [% END %]
 </ul>
@@ -30,14 +32,16 @@
 <ul>
 [% FOR item IN items %]
     <li>
+        <div class="border-rounded">
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
             <input type="checkbox" name="active" id="active" value="[% item.id %]">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="text" name="new_category" id="new_category" placeholder="Category" value="[% item.category %]">
-            <input type="submit" name="submit" value="Update" class="pad_top">
+            <input type="submit" name="submit" value="Update">
             <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
         </form>
+        </div>
     </li>
 [% END %]
 </ul>
