@@ -1,6 +1,14 @@
 <a href="/" class="button button-light"><</a>
 <a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
+<form name="refresh" action="/[% account %]/[% list %]" method="get">
+<select name="sort" onchange="this.form.submit();">
+    <option value="added" [% IF sort == 'added' %]selected[% END %]>Added</option>
+    <option value="alpha" [% IF sort == 'alpha' %]selected[% END %]>Alpha</option>
+    <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
+</select>
+</form>
 [% IF data.size %]
+<p>
 <ul>
     [% FOR item IN data %]
     <li>

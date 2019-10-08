@@ -12,6 +12,10 @@ li {
     list-style-type : none;
 }
 
+form {
+    display: inline;
+}
+
 .button-light {
     background-color : #d2f0f9;
 }
