@@ -6,13 +6,13 @@
     <li>
         <div class="border-rounded green-background">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
-            <input type="checkbox" name="active" id="active" checked>
-            <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3">
+            <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked>
+            <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3" onchange="this.form.submit();">
             [% item.name %]
         [% IF item.note %]
             - [% item.note %]
         [% END %]
-            <input type="submit" name="submit" value="Update">
+            <input type="submit" name="submit_btn" value="Update">
         </form>
         </div>
     </li>
@@ -34,11 +34,11 @@
     <li>
         <div class="border-rounded yellow-background">
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
-            <input type="checkbox" name="active" id="active" value="[% item.id %]">
+            <input type="checkbox" name="active" id="active" value="[% item.id %]" onchange="this.form.submit();">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="text" name="new_category" id="new_category" placeholder="Category" value="[% item.category %]">
-            <input type="submit" name="submit" value="Update">
+            <input type="submit" name="submit_btn" value="Update">
             <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
         </form>
         </div>
