@@ -94,6 +94,25 @@ get '/:account/:list' => require_login sub {
     elsif ( $sort eq 'added' ) {
         @data = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
     }
+    else { # By category
+        my %cats = ();
+        for my $item ( keys %$data ) {
+            push @{ $cats{ $data->{$item}{category} } }, $data->{$item};
+        }
+
+        my $i = 0;
+        for my $cat ( sort { $a cmp $b } keys %cats ) {
+            if ( $i == 0 ) {
+                push @data, { title => $cat };
+                $i++;
+            }
+            for my $item ( @{ $cats{$cat} } ) {
+                push @data, $item;
+            }
+
+            $i = 0;
+        }
+    }
 
     $sth = database->prepare(SQL8);
     $sth->execute($account);

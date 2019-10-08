@@ -1,28 +1,32 @@
 <a href="/" class="button button-light"><</a>
-<a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
 <form name="refresh" action="/[% account %]/[% list %]" method="get">
-<select name="sort" onchange="this.form.submit();">
+Sort: <select name="sort" onchange="this.form.submit();">
     <option value="added" [% IF sort == 'added' %]selected[% END %]>Added</option>
     <option value="alpha" [% IF sort == 'alpha' %]selected[% END %]>Alpha</option>
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
+<a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
 [% IF data.size %]
 <p>
 <ul>
     [% FOR item IN data %]
     <li>
+        [% IF item.title %]
+        [% item.title %]
+        [% ELSE %]
         <div class="border-rounded green-background">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3" onchange="this.form.submit();">
             [% item.name %]
-        [% IF item.note %]
+            [% IF item.note %]
             - [% item.note %]
-        [% END %]
+            [% END %]
             <input type="submit" name="submit_btn" value="Update">
         </form>
         </div>
+        [% END %]
     </li>
     [% END %]
 </ul>
