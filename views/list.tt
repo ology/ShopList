@@ -8,7 +8,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button button-light" title="Print list">
+<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button" title="Print list">
     <input type="image" name="go" src="/images/print.png" class="img-btn">
 </a>
 [% IF data.size %]
