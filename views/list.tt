@@ -6,7 +6,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-<a href="/[% account %]/[% list %]/print_list" class="button">Print</a>
+<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button">Print</a>
 [% IF data.size %]
 <p>
 <ul>

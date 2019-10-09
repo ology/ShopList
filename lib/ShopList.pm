@@ -102,7 +102,7 @@ get '/:account/:list' => require_login sub {
 
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             push @data, { title => $cat };
-            push @data, $_ for @{ $cats{$cat} };
+            push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
         }
     }
 
