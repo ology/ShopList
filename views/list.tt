@@ -24,11 +24,11 @@ Sort: <select name="sort" onchange="this.form.submit();">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked>
             <input type="text" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" size="3" onchange="this.form.submit();">
+            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
             [% item.name %]
             [% IF item.note %]
             - [% item.note %]
             [% END %]
-            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
         </div>
         [% END %]
