@@ -1,4 +1,6 @@
-<a href="/" class="button button-light"><</a>
+<a href="/" class="button button-light">
+    <input type="image" name="go" src="/images/backward.png" class="img-btn">
+</a>
 <form name="refresh" action="/[% account %]/[% list %]" method="get">
 Sort: <select name="sort" onchange="this.form.submit();">
     <option value="added" [% IF sort == 'added' %]selected[% END %]>Added</option>
@@ -6,7 +8,9 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button">Print</a>
+<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button button-light">
+    <input type="image" name="go" src="/images/print.png" class="img-btn">
+</a>
 [% IF data.size %]
 <p>
 <ul>

@@ -1,4 +1,6 @@
-<a href="/[% account %]/[% list %]" class="button button-light"><</a>
+<a href="/[% account %]/[% list %]" class="button button-light">
+    <input type="image" name="go" src="/images/backward.png" class="img-btn">
+</a>
 <h2>[% name %]</h2>
 <ul>
 [% FOR item IN data %]
