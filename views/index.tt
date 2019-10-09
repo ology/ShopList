@@ -1,5 +1,5 @@
 <form name="new_list" action="/[% account %]/new_list" method="post">
-    <input type="text" name="new_name" id="new_name" placeholder="List name">
+    <input type="text" name="new_name" id="new_name" placeholder="Store name">
     <button type="submit" title="New list"><input type="image" name="new" src="/images/plus.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 <p>
