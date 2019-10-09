@@ -1,4 +1,4 @@
-<a href="/" class="button button-light">
+<a href="/" class="button button-light" title="Return to lists">
     <input type="image" name="go" src="/images/backward.png" class="img-btn">
 </a>
 <form name="refresh" action="/[% account %]/[% list %]" method="get">
@@ -8,7 +8,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button button-light">
+<a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button button-light" title="Print list">
     <input type="image" name="go" src="/images/print.png" class="img-btn">
 </a>
 [% IF data.size %]
@@ -22,9 +22,9 @@ Sort: <select name="sort" onchange="this.form.submit();">
         <div class="border-rounded green-background">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="hidden" name="sort" value="[% sort %]">
-            <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked>
+            <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked title="Remove item from list">
             <input type="number" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" style=width:4em;">
-            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
+            <button type="submit" title="Update quantity"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
             [% item.name %]
             [% IF item.note %]
             - [% item.note %]
@@ -43,7 +43,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <input type="text" name="new_name" id="new_name" placeholder="Item name">
     <input type="text" name="new_note" id="new_note" placeholder="Note">
     <input type="text" name="new_category" id="new_category" placeholder="Category">
-    <button type="submit"><input type="image" name="new" src="/images/plus.png" class="img-btn" onchange="this.form.submit();"></button>
+    <button type="submit" title="New item"><input type="image" name="new" src="/images/plus.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 <p>
 <ul>
@@ -51,14 +51,14 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <li>
         <div class="border-rounded yellow-background">
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
-            <input type="checkbox" name="active" id="active" value="[% item.id %]" onchange="this.form.submit();">
+            <input type="checkbox" name="active" id="active" value="[% item.id %]" onchange="this.form.submit();" title="Add item to list">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="text" name="new_category" id="new_category" placeholder="Category" value="[% item.category %]">
-            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
+            <button type="submit" title="Update item"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
-        <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">
+        <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;" title="Delete item">
             <input type="image" name="delete" src="/images/minus.png" class="img-btn">
         </a>
         </div>

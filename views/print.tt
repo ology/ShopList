@@ -1,4 +1,4 @@
-<a href="/[% account %]/[% list %]" class="button button-light">
+<a href="/[% account %]/[% list %]" class="button button-light" title="Return to list">
     <input type="image" name="go" src="/images/backward.png" class="img-btn">
 </a>
 <h2>[% name %]</h2>
