@@ -100,7 +100,8 @@ get '/:account/:list' => require_login sub {
             push @{ $cats{ $data->{$item}{category} } }, $data->{$item};
         }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
-            push @data, { title => $cat };
+            my $title = $cat ? $cat : 'uncategorized';
+            push @data, { title => $title };
             push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
         }
     }
