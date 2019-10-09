@@ -99,7 +99,6 @@ get '/:account/:list' => require_login sub {
         for my $item ( keys %$data ) {
             push @{ $cats{ $data->{$item}{category} } }, $data->{$item};
         }
-
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             push @data, { title => $cat };
             push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
@@ -200,6 +199,7 @@ get '/:account/:list/print_list' => require_login sub {
 
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
+    my $sort    = query_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -211,7 +211,24 @@ get '/:account/:list/print_list' => require_login sub {
     my %seen = ();
     @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
 
-    my @data = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+    my @data = ();
+
+    if ( $sort eq 'alpha' ) {
+        @data = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+    }
+    elsif ( $sort eq 'added' ) {
+        @data = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
+    }
+    else { # By category
+        my %cats = ();
+        for my $item ( keys %$data ) {
+            push @{ $cats{ $data->{$item}{category} } }, $data->{$item};
+        }
+        for my $cat ( sort { $a cmp $b } keys %cats ) {
+            push @data, { title => $cat };
+            push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
+        }
+    }
 
     $sth = database->prepare(SQL3);
     $sth->execute($list);

@@ -5,10 +5,14 @@
 <ul>
 [% FOR item IN data %]
     <li>
+        [% IF item.title %]
+        <b>[% item.title %]</b>
+        [% ELSE %]
         [% item.quantity %]
         [% item.name %]
-    [% IF item.note %]
+        [% IF item.note %]
         - [% item.note %]
+        [% END %]
     [% END %]
     </li>
 [% END %]
