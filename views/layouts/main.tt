@@ -22,9 +22,13 @@
 [% content %]
 
 <div id="footer">
-    Built by <a href="http://gene.ology.net/">Gene Boggs</a>
-    |
-    <a href="/logout">Logout</a>
+    [% IF user %]
+    <b><a href="/logout">Logout</a></b>
+    <br>
+    [% END %]
+    <b>Built by <a href="http://gene.ology.net/">Gene Boggs</a></b>
+    <br>
+    Icons made by <a href="https://www.flaticon.com/<?=_('authors/')?>smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 </div>
 
 </body>

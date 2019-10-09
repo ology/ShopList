@@ -24,7 +24,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
             [% IF item.note %]
             - [% item.note %]
             [% END %]
-            <input type="submit" name="submit_btn" value="Update">
+            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
         </div>
         [% END %]
@@ -39,7 +39,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <input type="text" name="new_name" id="new_name" placeholder="Item name">
     <input type="text" name="new_note" id="new_note" placeholder="Note">
     <input type="text" name="new_category" id="new_category" placeholder="Category">
-    <input type="submit" name="submit" value="New">
+    <button type="submit"><input type="image" name="new" src="/images/plus.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 <p>
 <ul>
@@ -52,9 +52,11 @@ Sort: <select name="sort" onchange="this.form.submit();">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
             <input type="text" name="new_category" id="new_category" placeholder="Category" value="[% item.category %]">
-            <input type="submit" name="submit_btn" value="Update">
-            <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
+            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
+        <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;">
+            <input type="image" name="delete" src="/images/minus.png" class="img-btn">
+        </a>
         </div>
     </li>
 [% END %]

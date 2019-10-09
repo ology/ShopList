@@ -1,6 +1,6 @@
 <form name="new_list" action="/[% account %]/new_list" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="List name">
-    <input type="submit" name="submit" value="New">
+    <button type="submit"><input type="image" name="new" src="/images/plus.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 <p>
 <ul>
@@ -8,10 +8,14 @@
     <li>
         <form name="update_list" action="/[% account %]/[% item.id %]/update_list" method="post">
             <input type="text" name="new_name" id="new_name" placeholder="List name" value="[% item.name %]">
-            <input type="submit" name="submit" value="Update">
-            <a href="/[% account %]/[% item.id %]/delete_list" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
-            <a href="/[% account %]/[% item.id %]" class="button button-light">></a>
+            <button type="submit"><input type="image" name="new" src="/images/incoming.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
+        <a href="/[% account %]/[% item.id %]/delete_list" class="button" onclick="if(!confirm('Are you sure?')) return false;">
+            <input type="image" name="delete" src="/images/minus.png" class="img-btn">
+        </a>
+        <a href="/[% account %]/[% item.id %]" class="button button-light">
+            <input type="image" name="go" src="/images/forward.png" class="img-btn">
+        </a>
     </li>
 [% END %]
 </ul>

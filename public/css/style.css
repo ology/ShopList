@@ -34,6 +34,12 @@ form {
     background-color : #ffffcc;
 }
 
+.img-btn {
+    height : 24px;
+    width : 24px;
+    vertical-align : middle;
+}
+
 #footer {
     clear : both;
     padding-top : 2em;
