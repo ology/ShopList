@@ -13,4 +13,6 @@
     </li>
 [% END %]
 </ul>
-
+<script>
+window.print();
+</script>
