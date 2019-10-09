@@ -6,7 +6,7 @@
 [% FOR item IN data %]
     <li>
         [% IF item.title %]
-        <b>[% item.title %]</b>
+        <b>[% item.title.ucfirst %]</b>
         [% ELSE %]
         [% item.quantity %]
         [% item.name %]

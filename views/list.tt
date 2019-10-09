@@ -17,7 +17,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     [% FOR item IN data %]
     <li>
         [% IF item.title %]
-        <b>[% item.title %]</b>
+        <b>[% item.title.ucfirst %]</b>
         [% ELSE %]
         <div class="border-rounded green-background">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
