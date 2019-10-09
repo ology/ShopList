@@ -249,6 +249,7 @@ post '/:account/:list/:row/update_row' => require_login sub {
     my $quant   = body_parameters->get('new_quantity') || 0;
     my $tags    = body_parameters->get('new_tags');
     my $active  = body_parameters->get('active');
+    my $sort    = body_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -262,7 +263,7 @@ post '/:account/:list/:row/update_row' => require_login sub {
         $sth->execute($row);
     }
 
-    redirect "/$account/$list";
+    redirect "/$account/$list?sort=$sort";
 };
 
 =head2 /account/list/new_item
@@ -312,6 +313,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
     my $active  = body_parameters->get('active');
+    my $sort    = body_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -324,7 +326,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
         $sth->execute( $account, $list, $item, 1 );
     }
 
-    redirect "/$account/$list";
+    redirect "/$account/$list?sort=$sort";
 };
 
 
