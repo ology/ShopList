@@ -97,7 +97,7 @@ get '/:account/:list' => require_login sub {
     else { # By category
         my %cats = ();
         for my $item ( keys %$data ) {
-            push @{ $cats{ $data->{ lc $item }{category} } }, $data->{$item};
+            push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
         }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             my $title = $cat ? $cat : 'uncategorized';
@@ -223,7 +223,7 @@ get '/:account/:list/print_list' => require_login sub {
     else { # By category
         my %cats = ();
         for my $item ( keys %$data ) {
-            push @{ $cats{ $data->{ lc $item }{category} } }, $data->{$item};
+            push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
         }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             my $title = $cat ? $cat : 'uncategorized';
