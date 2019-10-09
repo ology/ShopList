@@ -28,7 +28,7 @@
     [% END %]
     <b>Built by <a href="http://gene.ology.net/">Gene Boggs</a></b>
     <br>
-    Icons made by <a href="https://www.flaticon.com/<?=_('authors/')?>smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    Icons by <a href="https://www.flaticon.com/<?=_('authors/')?>smashicons" title="Smashicons">Smashicons</a> at <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>
 </div>
 
 </body>
