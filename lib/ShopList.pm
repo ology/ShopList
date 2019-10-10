@@ -120,7 +120,7 @@ get '/:account/:list' => require_login sub {
         data    => \@show,
         items   => \@items,
         sort    => $sort,
-        cats    => [ keys %cats ],
+        cats    => [ grep { $_ } keys %cats ],
     };
 };
 
