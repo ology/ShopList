@@ -114,10 +114,15 @@ get '/:account/:list' => require_login sub {
     # List all items that are not on the list
     my @items = map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } grep { !exists $seen{$_} } keys %$items;
 
+    $sth = database->prepare(SQL3);
+    $sth->execute($list);
+    my $name = ( $sth->fetchrow_array )[0];
+
     template 'list' => {
         user    => $user->{account},
         account => $account,
         list    => $list,
+        name    => $name,
         data    => \@show,
         items   => \@items,
         sort    => $sort,
