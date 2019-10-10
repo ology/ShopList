@@ -4,9 +4,32 @@ use warnings;
 
 use Crypt::SaltedHash;
 use DBI;
+use Term::ReadKey;
 
 my $account = shift or die "Usage: perl $0 account passphrase\n";
 my $pass    = shift;
+
+unless ( $pass ) {
+    print "Password: ";
+    ReadMode('noecho');
+    $pass = ReadLine(0);
+    chomp $pass;
+    ReadMode('restore');
+    print "\n";
+
+    print "Again: ";
+    ReadMode('noecho');
+    my $again = ReadLine(0);
+    chomp $again;
+    ReadMode('restore');
+    print "\n";
+
+    die "\nERROR: Passwords do not match.\n"
+        unless $pass eq $again;
+}
+
+die 'No password given'
+    unless $pass;
 
 my $driver   = 'SQLite';
 my $database = 'shoplist.db';
