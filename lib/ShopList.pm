@@ -23,6 +23,7 @@ use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ? WHERE id
 use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE id = ?';
+use constant SQL14 => 'DELETE FROM list_item';
 
 our $VERSION = '0.01';
 
@@ -246,6 +247,24 @@ get '/:account/:list/print_list' => require_login sub {
         data    => \@show,
         sort    => $sort,
     };
+};
+
+=head2 /account/list/delete_items
+
+Remove all items from the list.
+
+=cut
+
+get '/:account/:list/delete_items' => require_login sub {
+    my $user = logged_in_user;
+
+    my $account = route_parameters->get('account');
+    my $list    = route_parameters->get('list');
+
+    my $sth = database->prepare(SQL14);
+    $sth->execute;
+
+    redirect "/$account/$list";
 };
 
 =head2 /account/list/row/update_row
