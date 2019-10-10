@@ -251,7 +251,7 @@ get '/:account/:list/print_list' => require_login sub {
 
 =head2 /account/list/delete_items
 
-Remove all items from the list.
+Remove all items.
 
 =cut
 
