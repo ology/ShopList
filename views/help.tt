@@ -34,10 +34,12 @@
 <b>Examples:</b>
 <ul>
 <li>Store name = "Safeway"</li>
-<li>List item = "Tomato soup", Note = "32oz", Category = 'cans"</li>
-<li>List item = "Chili", Note = "12oz", Category = 'cans"</li>
-<li>List item = "Rasin bran", Note = "Family size", Category = 'cereals"</li>
-<li>List item = "Corn flakes", Note = "", Category = 'cereals"</li>
-<li>List item = "Dave's bread", Note = "", Category = 'breads"</li>
-<li>List item = "English muffins", Note = "wheat", Category = 'breads"</li>
+<li>List item = "Tomato soup", Note = "32oz", Category = "cans"</li>
+<li>List item = "Chili", Note = "12oz", Category = "cans"</li>
+<li>List item = "Rasin bran", Note = "Family size", Category = "cereals"</li>
+<li>List item = "Corn flakes", Note = "", Category = "cereals"</li>
+<li>List item = "Dave"s bread", Note = "", Category = "breads"</li>
+<li>List item = "English muffins", Note = "wheat", Category = "breads"</li>
+<li>List item = "Dr Pepper", Note = "", Category = "beverages"</li>
+<li>List item = "Coke", Note = "", Category = "beverages"</li>
 </ul>
