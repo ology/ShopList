@@ -243,6 +243,7 @@ get '/:account/:list/print_list' => require_login sub {
         list    => $list,
         name    => $name,
         data    => \@show,
+        sort    => $sort,
     };
 };
 
