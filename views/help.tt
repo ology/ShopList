@@ -2,33 +2,33 @@
 
 <b>Lists:</b>
 <ul>
-<li>Enter a name for each store at which you want to shop and click the <img src="/images/plus.png" height="24" width="24"> "New list" icon.</li>
-<li>Update the spelling by changing the text and clicking the <img src="/images/incoming.png" height="24" width="24"> "Update list" icon.</li>
-<li>Remove the list by clicking the <img src="/images/minus.png" height="24" width="24"> "Delete list" icon.</li>
-<li>Go to the list of items by clicking the <img src="/images/forward.png" height="24" width="24"> "Go to list" icon.</li>
+<li>Enter a name for each store at which you want to shop and click the <img src="/images/plus-colored.png" height="24" width="24"> "New list" icon.</li>
+<li>Update the spelling by changing the text and clicking the <img src="/images/incoming-colored.png" height="24" width="24"> "Update list" icon.</li>
+<li>Remove the list by clicking the <img src="/images/minus-colored.png" height="24" width="24"> "Delete list" icon.</li>
+<li>Go to the list of items by clicking the <img src="/images/forward-colored.png" height="24" width="24"> "Go to list" icon.</li>
 </ul>
 
 <b>List items:</b>
 <ul>
-<li>Return to your lists by clicking the <img src="/images/backward.png" height="24" width="24"> "Return to lists" icon.</li>
+<li>Return to your lists by clicking the <img src="/images/backward-colored.png" height="24" width="24"> "Return to lists" icon.</li>
 <li>Sort your shopping list items by one of the available methods in the select box. Alphabetical is default.</li>
 <li>Render a page with just the shopping list items for printing by clicking the <img src="/images/print.png" height="24" width="24"> "Print list" icon.</li>
 <li>List items are highlighted in green.</li>
 <li>Click the leading checkbox to remove the item from the list.</li>
-<li>Update the <i>quantity</i> by entering a new number and clicking the <img src="/images/incoming.png" height="24" width="24"> "Update quantity" icon.</li>
+<li>Update the <i>quantity</i> by entering a new number and clicking the <img src="/images/incoming-colored.png" height="24" width="24"> "Update quantity" icon.</li>
 </ul>
 
 <b>New item:</b>
 <ul>
-<li>Enter an <i>item name</i>, optional <i>note</i>, handy <i>category</i> and click the <img src="/images/plus.png" height="24" width="24"> "New item" icon to add a new item to your shopping list.</li>
+<li>Enter an <i>item name</i>, optional <i>note</i>, handy <i>category</i> and click the <img src="/images/plus-colored.png" height="24" width="24"> "New item" icon to add a new item to your shopping list.</li>
 </ul>
 
 <b>Non-list items:</b>
 <ul>
 <li>Non-list items are highlighted in yellow.</li>
 <li>Click the leading checkbox to add the item to the list.</li>
-<li>Update the spelling of the <i>item</i>, <i>note</i>, or <i>category</i> and click the <img src="/images/incoming.png" height="24" width="24"> "Update item" icon.</li>
-<li>Remove an item by clicking the <img src="/images/minus.png" height="24" width="24"> "Delete item" icon.</li>
+<li>Update the spelling of the <i>item</i>, <i>note</i>, or <i>category</i> and click the <img src="/images/incoming-colored.png" height="24" width="24"> "Update item" icon.</li>
+<li>Remove an item by clicking the <img src="/images/minus-colored.png" height="24" width="24"> "Delete item" icon.</li>
 </ul>
 
 <b>Examples:</b>
