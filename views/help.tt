@@ -10,6 +10,7 @@
 
 <b>List items:</b>
 <ul>
+<li>List items are highlighted in green.</li>
 <li>Return to your lists by clicking the <img src="/images/backward.png" height="24" width="24"> "Return to lists" icon.</li>
 <li>Sort your shopping list items by one of the available methods in the select box. Alphabetical is default.</li>
 <li>Render a page with just the shopping list items for printing by clicking the <img src="/images/print.png" height="24" width="24"> "Print list" icon.</li>
@@ -24,6 +25,7 @@
 
 <b>Non-list items:</b>
 <ul>
+<li>Non-list items are highlighted in yellow.</li>
 <li>Click the leading checkbox to add the item to the list.</li>
 <li>Update the spelling of the <i>item</i>, <i>note</i>, or <i>category</i> and click the <img src="/images/incoming.png" height="24" width="24"> "Update item" icon.</li>
 <li>Remove an item by clicking the <img src="/images/minus.png" height="24" width="24"> "Delete item" icon.</li>
