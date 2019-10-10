@@ -11,6 +11,9 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button" title="Print list">
     <input type="image" name="go" src="/images/print-colored.png" class="img-btn">
 </a>
+<a href="/[% account %]/[% list %]/delete_items?sort=[% sort %]" class="button" title="Delete items">
+    <input type="image" name="go" src="/images/trash-colored.png" class="img-btn">
+</a>
 [% IF data.size %]
 <p>
 <ul>
