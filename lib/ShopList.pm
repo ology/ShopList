@@ -366,6 +366,13 @@ get '/:account/:list/:item/delete_item' => require_login sub {
     redirect "/$account/$list";
 };
 
+get '/help' => sub {
+    my $user = logged_in_user;
+
+    template 'help' => {
+        user => $user->{account},
+    };
+};
 
 sub _is_allowed {
     my ($name, $id) = @_;

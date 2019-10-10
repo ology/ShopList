@@ -24,6 +24,8 @@
 <div id="footer">
     [% IF user %]
     <b><a href="/logout">Logout</a></b>
+    |
+    <b><a href="/help">Help</a></b>
     <br>
     [% END %]
     <b>Built by <a href="http://gene.ology.net/">Gene Boggs</a></b>
