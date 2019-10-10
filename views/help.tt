@@ -13,7 +13,7 @@
 <li>Return to your lists by clicking the <img src="/images/backward.png" height="24" width="24"> "Return to lists" icon.</li>
 <li>Sort your shopping list items by one of the available methods in the select box. Alphabetical is default.</li>
 <li>Render a page with just the shopping list items for printing by clicking the <img src="/images/print.png" height="24" width="24"> "Print list" icon.</li>
-<li>Click the leading checkbox to remove an item from the list.</li>
+<li>Click the leading checkbox to remove the item from the list.</li>
 <li>Update the <i>quantity</i> by entering a new number and clicking the <img src="/images/incoming.png" height="24" width="24"> "Update quantity" icon.</li>
 </ul>
 
