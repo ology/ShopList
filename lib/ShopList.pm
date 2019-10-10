@@ -86,23 +86,23 @@ get '/:account/:list' => require_login sub {
     my %seen = ();
     @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
 
-    my @data = ();
+    my @show = ();
+    my %cats = ();
 
     if ( $sort eq 'alpha' ) {
-        @data = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+        @show = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
     }
     elsif ( $sort eq 'added' ) {
-        @data = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
+        @show = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
     }
     else { # By category
-        my %cats = ();
         for my $item ( keys %$data ) {
             push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
         }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             my $title = $cat ? $cat : 'uncategorized';
-            push @data, { title => $title };
-            push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
+            push @show, { title => $title };
+            push @show, $_ for sort { $a->{name} cmp $b->{name} } @{ $cats{$cat} };
         }
     }
 
@@ -117,9 +117,10 @@ get '/:account/:list' => require_login sub {
         user    => $user->{account},
         account => $account,
         list    => $list,
-        data    => \@data,
+        data    => \@show,
         items   => \@items,
         sort    => $sort,
+        cats    => [ keys %cats ],
     };
 };
 
@@ -212,23 +213,23 @@ get '/:account/:list/print_list' => require_login sub {
     my %seen = ();
     @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
 
-    my @data = ();
+    my @show = ();
+    my %cats = ();
 
     if ( $sort eq 'alpha' ) {
-        @data = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+        @show = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
     }
     elsif ( $sort eq 'added' ) {
-        @data = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
+        @show = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
     }
     else { # By category
-        my %cats = ();
         for my $item ( keys %$data ) {
             push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
         }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             my $title = $cat ? $cat : 'uncategorized';
-            push @data, { title => $title };
-            push @data, $_ for sort { $cats{$a}->{name} cmp $cats{$b}->{name} } @{ $cats{$cat} };
+            push @show, { title => $title };
+            push @show, $_ for sort { $a->{name} cmp $b->{name} } @{ $cats{$cat} };
         }
     }
 
@@ -241,7 +242,7 @@ get '/:account/:list/print_list' => require_login sub {
         account => $account,
         list    => $list,
         name    => $name,
-        data    => \@data,
+        data    => \@show,
     };
 };
 
