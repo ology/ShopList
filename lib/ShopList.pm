@@ -87,7 +87,11 @@ get '/:account/:list' => require_login sub {
     @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
 
     my @show = ();
+
     my %cats = ();
+    for my $item ( keys %$data ) {
+        push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
+    }
 
     if ( $sort eq 'alpha' ) {
         @show = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
@@ -96,9 +100,6 @@ get '/:account/:list' => require_login sub {
         @show = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
     }
     else { # By category
-        for my $item ( keys %$data ) {
-            push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
-        }
         for my $cat ( sort { $a cmp $b } keys %cats ) {
             my $title = $cat ? $cat : 'uncategorized';
             push @show, { title => $title };
