@@ -24,7 +24,7 @@
 
 <b>Non-list items:</b>
 <ul>
-<li>Click the leading checkbox to add an item to the list.</li>
+<li>Click the leading checkbox to add the item to the list.</li>
 <li>Update the spelling of the <i>item</i>, <i>note</i>, or <i>category</i> and click the <img src="/images/incoming.png" height="24" width="24"> "Update item" icon.</li>
 <li>Remove an item by clicking the <img src="/images/minus.png" height="24" width="24"> "Delete item" icon.</li>
 </ul>
