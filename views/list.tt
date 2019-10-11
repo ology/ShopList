@@ -13,7 +13,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <input type="image" name="go" src="/images/print-colored.png" class="img-btn">
 </a>
 <a href="/[% account %]/[% list %]/delete_items" class="button" title="Remove all items" onclick="if(!confirm('Are you sure?')) return false;">
-    <input type="image" name="go" src="/images/trash-colored.png" class="img-btn">
+    <input type="image" name="go" src="/images/close.png" class="img-btn">
 </a>
 [% name %]
 [% IF data.size %]
