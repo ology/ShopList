@@ -264,6 +264,7 @@ get '/:account/:list/delete_items' => require_login sub {
 
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
+    my $sort    = query_parameters->get('sort') || 'alpha';
 
     my $sth = database->prepare(SQL13);
     $sth->execute($list);
@@ -317,6 +318,7 @@ post '/:account/:list/new_item' => require_login sub {
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
+    my $sort    = body_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -331,7 +333,7 @@ post '/:account/:list/new_item' => require_login sub {
         $sth->execute( $account, $list, $item_id, 1 );
     }
 
-    redirect "/$account/$list";
+    redirect "/$account/$list?sort=$sort";
 };
 
 =head2 /account/list/item/update_item
@@ -379,6 +381,7 @@ get '/:account/:list/:item/delete_item' => require_login sub {
     my $account = route_parameters->get('account');
     my $list    = route_parameters->get('list');
     my $item    = route_parameters->get('item');
+    my $sort    = query_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -386,7 +389,7 @@ get '/:account/:list/:item/delete_item' => require_login sub {
     my $sth = database->prepare(SQL9);
     $sth->execute($item);
 
-    redirect "/$account/$list";
+    redirect "/$account/$list?sort=$sort";
 };
 
 get '/help' => sub {

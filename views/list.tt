@@ -44,6 +44,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 [% END %]
 <hr>
 <form name="new_item" action="/[% account %]/[% list %]/new_item" method="post">
+    <input type="hidden" name="sort" value="[% sort %]">
     <input type="text" name="new_name" id="new_name" placeholder="Item name">
     <input type="text" name="new_note" id="new_note" placeholder="Note">
     <input type="text" name="new_category" id="new_category" placeholder="Category" list="category">
@@ -60,6 +61,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <li>
         <div class="border-rounded yellow-background">
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
+            <input type="hidden" name="sort" value="[% sort %]">
             <input type="checkbox" name="active" id="active" value="[% item.id %]" onchange="this.form.submit();" title="Add item to list">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
@@ -72,7 +74,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
             </datalist>
             <button type="submit" title="Update item"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
-        <a href="/[% account %]/[% list %]/[% item.id %]/delete_item" class="button" onclick="if(!confirm('Are you sure?')) return false;" title="Delete item">
+        <a href="/[% account %]/[% list %]/[% item.id %]/delete_item?sort=[% sort %]" class="button" onclick="if(!confirm('Are you sure?')) return false;" title="Delete item">
             <input type="image" name="delete" src="/images/minus-colored.png" class="img-btn">
         </a>
         </div>
