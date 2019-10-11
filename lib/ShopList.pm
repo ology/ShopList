@@ -22,7 +22,7 @@ use constant SQL9 => 'DELETE FROM item WHERE id = ?';
 use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ? WHERE id = ?';
 use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
-use constant SQL13 => 'DELETE FROM list_item WHERE id = ?';
+use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
 
 our $VERSION = '0.01';
 
