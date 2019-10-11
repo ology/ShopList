@@ -24,6 +24,7 @@ use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id,
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
 use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
+use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
 
 our $VERSION = '0.01';
 
@@ -83,10 +84,6 @@ get '/:account/:list' => require_login sub {
     $sth->execute( $account, $list );
     my $data = $sth->fetchall_hashref('id');
 
-    # Note the items that are on the list
-    my %seen = ();
-    @seen{ map { $data->{$_}{item_id} } keys %$data } = undef;
-
     my @show = ();
 
     my %cats = ();
@@ -108,12 +105,12 @@ get '/:account/:list' => require_login sub {
         }
     }
 
-    $sth = database->prepare(SQL8);
+    $sth = database->prepare(SQL15);
     $sth->execute($account);
     my $items = $sth->fetchall_hashref('id');
 
     # List all items that are not on the list
-    my @items = map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } grep { !exists $seen{$_} } keys %$items;
+    my @items = map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items;
 
     $sth = database->prepare(SQL3);
     $sth->execute($list);
