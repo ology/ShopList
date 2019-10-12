@@ -12,7 +12,7 @@ Hello [% user.ucfirst %].
             <input type="text" name="new_name" id="new_name" placeholder="List name" value="[% item.name %]">
             <button type="submit" title="Update list"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
-        <a href="/[% account %]/[% item.id %]/delete_list" class="button" onclick="if(!confirm('Are you sure?')) return false;">
+        <a href="/[% account %]/[% item.id %]/delete_list" class="button" onclick="if(!confirm('Are you sure you want to delete this list?')) return false;">
             <input type="image" name="delete" src="/images/minus-colored.png" class="img-btn" title="Delete list">
         </a>
         <a href="/[% account %]/[% item.id %]" class="button">
