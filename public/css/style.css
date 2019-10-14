@@ -28,6 +28,10 @@ input[type=checkbox]
   margin : 10px;
 }
 
+select {
+    height: 35px;
+}
+
 .button-light {
     background-color : #d2f0f9;
 }
