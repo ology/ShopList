@@ -366,7 +366,6 @@ post '/:account/:list/:item/update_item' => require_login sub {
     redirect "/$account/$list?sort=$sort";
 };
 
-
 =head2 /account/list/item/delete_item
 
 Delete an item.
