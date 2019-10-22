@@ -28,7 +28,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked title="Remove item from list">
             <input type="number" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" style=width:4em;">
-            <button type="submit" title="Update quantity"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button>
+<!--             <button type="submit" title="Update quantity"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button> -->
             [% item.name %]
             [% IF item.note %]
             - [% item.note %]
@@ -72,7 +72,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
                 <option>[% cat %]</option>
     [% END %]
             </datalist>
-            <button type="submit" title="Update item"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button>
+<!--             <button type="submit" title="Update item"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button> -->
         </form>
         <a href="/[% account %]/[% list %]/[% item.id %]/delete_item?sort=[% sort %]" class="button" onclick="if(!confirm('Are you sure you want to remove this item forever?')) return false;" title="Delete item">
             <input type="image" name="delete" src="/images/minus-colored.png" class="img-btn">
