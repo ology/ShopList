@@ -37,6 +37,7 @@ $sql = <<'SQL';
 CREATE TABLE item (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     account_id INT NOT NULL,
+    shop_list_id INT,
     name TEXT NOT NULL,
     note TEXT,
     category TEXT
