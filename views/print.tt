@@ -1,7 +1,7 @@
 <a href="/[% account %]/[% list %]?sort=[% sort %]" class="button" title="Return to list">
     <input type="image" name="go" src="/images/backward-colored.png" class="img-btn">
 </a>
-<h2>[% name %]</h2>
+<b>[% name %]</b>
 <ul>
 [% FOR item IN data %]
     <li>
