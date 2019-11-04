@@ -2,6 +2,7 @@
     <input type="image" name="go" src="/images/backward-colored.png" class="img-btn">
 </a>
 <b>[% name %]</b>
+<p>
 <ul>
 [% FOR item IN data %]
     <li>
