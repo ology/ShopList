@@ -14,7 +14,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-[% name %]
+<b>[% name %]</b>
 [% IF data.size %]
 <p>
 <ul>
@@ -72,6 +72,14 @@ Sort: <select name="sort" onchange="this.form.submit();">
                 <option>[% cat %]</option>
     [% END %]
             </datalist>
+            <select name="new_shop_list" id="new_shop_list">
+                <option value="">List name...</option>
+    [% FOR shop_list IN shop_lists %]
+        [% FOR key IN shop_list.keys %]
+                <option value="[% shop_list.$key %]" [% IF item.shop_list_id == shop_list.$key %]selected="selected"[% END %]>[% key %]</option>
+        [% END %]
+    [% END %]
+            </select>
             <button type="submit" title="Update item"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button>
         </form>
         <a href="/[% account %]/[% list %]/[% item.id %]/delete_item?sort=[% sort %]" class="button" onclick="if(!confirm('Are you sure you want to remove this item forever?')) return false;" title="Delete item">

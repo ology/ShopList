@@ -16,16 +16,17 @@ use constant SQL3 => 'SELECT name FROM shop_list WHERE id = ?';
 use constant SQL4 => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL5 => 'UPDATE shop_list SET name = ? WHERE id = ?';
 use constant SQL6 => 'DELETE FROM shop_list WHERE id = ?';
-use constant SQL7 => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
+use constant SQL7 => 'INSERT INTO item (account_id, name, note, category, shop_list_id) VALUES (?, ?, ?, ?, ?)';
 use constant SQL8 => 'SELECT id, account_id, name, note, category FROM item WHERE account_id = ?';
 use constant SQL9 => 'DELETE FROM item WHERE id = ?';
-use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ? WHERE id = ?';
+use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
 use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
 use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
-use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
+use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category, item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
 use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
+use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 
 our $VERSION = '0.01';
 
@@ -90,6 +91,11 @@ get '/:account/:list' => require_login sub {
     my $cats = $sth->fetchall_arrayref;
     $cats = [ map { $_->[0] } @$cats ];
 
+    $sth = database->prepare(SQL17);
+    $sth->execute($account);
+    my $shop_lists = $sth->fetchall_hashref('name');
+    $shop_lists = [ map { { $_ => $shop_lists->{$_}{id} } } sort { $a cmp $b } keys %$shop_lists ];
+
     my @show = ();
 
     if ( $sort eq 'alpha' ) {
@@ -116,12 +122,22 @@ get '/:account/:list' => require_login sub {
     $sth->execute($account);
     my $items = $sth->fetchall_hashref('id');
 
-    # List all items that are not on the list
-    my @items = map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items;
+    # List of all items that are not on the list
+    my @items = ();#map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items;
+    for my $i ( sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items ) {
+        if ( !$items->{$i}{shop_list_id} || $items->{$i}{shop_list_id} == $list ) {
+            push @items, $items->{$i};
+        }
+    }
 
     $sth = database->prepare(SQL3);
     $sth->execute($list);
     my $name = ( $sth->fetchrow_array )[0];
+
+    for my $i ( @items ) {
+        next unless $i->{shop_list_id};
+        $i->{shop_list} = $name;
+    }
 
     template 'list' => {
         user    => $user->{account},
@@ -132,6 +148,7 @@ get '/:account/:list' => require_login sub {
         items   => \@items,
         sort    => $sort,
         cats    => $cats,
+        shop_lists => $shop_lists,
     };
 };
 
@@ -290,7 +307,6 @@ post '/:account/:list/:row/update_row' => require_login sub {
     my $list    = route_parameters->get('list');
     my $row     = route_parameters->get('row');
     my $quant   = body_parameters->get('new_quantity') || 0;
-    my $tags    = body_parameters->get('new_tags');
     my $active  = body_parameters->get('active');
     my $sort    = body_parameters->get('sort') || 'alpha';
 
@@ -330,7 +346,7 @@ post '/:account/:list/new_item' => require_login sub {
 
     if ( $name ) {
         my $sth = database->prepare(SQL7);
-        $sth->execute( $account, $name, $note, $cat );
+        $sth->execute( $account, $name, $note, $cat, $list );
 
         my $item_id = database->sqlite_last_insert_rowid;
 
@@ -356,6 +372,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
+    my $shoplst = body_parameters->get('new_shop_list') || '';
     my $active  = body_parameters->get('active');
     my $sort    = body_parameters->get('sort') || 'alpha';
 
@@ -363,7 +380,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL10);
-    $sth->execute( $name, $note, $cat, $item );
+    $sth->execute( $name, $note, $cat, $shoplst, $item );
 
     if ( $active ) {
         $sth = database->prepare(SQL11);
