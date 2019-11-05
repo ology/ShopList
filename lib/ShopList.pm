@@ -25,6 +25,7 @@ use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
 use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
 use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
+use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
 
 our $VERSION = '0.01';
 
@@ -84,12 +85,12 @@ get '/:account/:list' => require_login sub {
     $sth->execute( $account, $list );
     my $data = $sth->fetchall_hashref('id');
 
-    my @show = ();
+    $sth = database->prepare(SQL16);
+    $sth->execute($account);
+    my $cats = $sth->fetchall_arrayref;
+    $cats = [ map { $_->[0] } @$cats ];
 
-    my %cats = ();
-    for my $item ( keys %$data ) {
-        push @{ $cats{ lc $data->{ $item }{category} } }, $data->{$item};
-    }
+    my @show = ();
 
     if ( $sort eq 'alpha' ) {
         @show = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
@@ -98,9 +99,15 @@ get '/:account/:list' => require_login sub {
         @show = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
     }
     else { # By category
+        my %cats = ();
+
+        for my $id ( keys %$data ) {
+            my $cat = $data->{$id}{category} ? $data->{$id}{category} : 'uncategorized';
+            push @{ $cats{$cat} }, $data->{$id};
+        }
+
         for my $cat ( sort { $a cmp $b } keys %cats ) {
-            my $title = $cat ? $cat : 'uncategorized';
-            push @show, { title => $title };
+            push @show, { title => $cat };
             push @show, $_ for sort { $a->{name} cmp $b->{name} } @{ $cats{$cat} };
         }
     }
@@ -124,7 +131,7 @@ get '/:account/:list' => require_login sub {
         data    => \@show,
         items   => \@items,
         sort    => $sort,
-        cats    => [ grep { $_ } keys %cats ],
+        cats    => $cats,
     };
 };
 
