@@ -16,7 +16,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <option value="category" [% IF sort == 'category' %]selected[% END %]>Category</option>
 </select>
 </form>
-<b>[% name %]</b>
+&nbsp; <b>[% name %]</b>
 [% IF data.size %]
 <p>
 <ul>
