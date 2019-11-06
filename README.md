@@ -9,14 +9,8 @@ Before being able to run the app, you must first create the database and users:
 
 > perl bin/01-db-insert-user.pl clyde
 
-Phone interface:
+Phone UI:
 
-*All shopping lists:*
+*Shopping list item page top:*
 
-![Shopping lists](https://github.com/ology/ShopList/blob/master/public/images/ui-01.png)
-
-*Shopping list item page top and bottom:*
-
-![Item list top](https://github.com/ology/ShopList/blob/master/public/images/ui-02.png)
-
-![Item list bottom](https://github.com/ology/ShopList/blob/master/public/images/ui-03.png)
+![Item list](https://github.com/ology/ShopList/blob/master/public/images/Shopping-List-App.png)
