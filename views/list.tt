@@ -4,9 +4,11 @@
 <a href="/[% account %]/[% list %]/print_list?sort=[% sort %]" class="button" title="Print list">
     <input type="image" name="go" src="/images/print-colored.png" class="img-btn">
 </a>
+<!--
 <a href="/[% account %]/[% list %]/delete_items" class="button" title="Remove all items" onclick="if(!confirm('Are you sure you want to remove all items from the list?')) return false;">
     <input type="image" name="go" src="/images/close.png" class="img-btn">
 </a>
+-->
 <form name="refresh" action="/[% account %]/[% list %]" method="get">
 Sort: <select name="sort" onchange="this.form.submit();">
     <option value="added" [% IF sort == 'added' %]selected[% END %]>Added</option>
