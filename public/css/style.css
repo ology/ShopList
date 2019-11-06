@@ -65,3 +65,16 @@ select {
     font-size : 10px;
 }
 
+.tablewrapper {
+  position: relative;
+}
+.table {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+}
+

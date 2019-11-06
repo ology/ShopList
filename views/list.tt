@@ -62,9 +62,17 @@ Sort: <select name="sort" onchange="this.form.submit();">
 [% FOR item IN items %]
     <li>
         <div class="border-rounded yellow-background">
+  <div class="tablewrapper">
+    <div class="table">
+      <div class="row">
+        <div class="cell">
         <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="checkbox" name="active" id="active" value="[% item.id %]" onchange="this.form.submit();" title="Add item to list">
+        </form>
+        </div>
+        <div class="cell">
+        <form name="update_item" action="/[% account %]/[% list %]/[% item.id %]/update_item" method="post">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="text" name="new_name" id="new_name" placeholder="Item name" value="[% item.name %]">
             <input type="text" name="new_note" id="new_note" placeholder="Note" value="[% item.note %]">
@@ -87,6 +95,10 @@ Sort: <select name="sort" onchange="this.form.submit();">
         <a href="/[% account %]/[% list %]/[% item.id %]/delete_item?sort=[% sort %]" class="button" onclick="if(!confirm('Are you sure you want to remove this item forever?')) return false;" title="Delete item">
             <input type="image" name="delete" src="/images/minus-colored.png" class="img-btn">
         </a>
+        </div>
+      </div>
+    </div>
+  </div>
         </div>
     </li>
 [% END %]
