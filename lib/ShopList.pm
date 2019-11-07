@@ -9,24 +9,27 @@ use Dancer2::Plugin::Database;
 
 use Data::Dumper;
 
-use constant SQL0 => 'SELECT id FROM user WHERE account = ?';
-use constant SQL1 => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
-use constant SQL2 => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
-use constant SQL3 => 'SELECT name FROM shop_list WHERE id = ?';
-use constant SQL4 => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
-use constant SQL5 => 'UPDATE shop_list SET name = ? WHERE id = ?';
-use constant SQL6 => 'DELETE FROM shop_list WHERE id = ?';
-use constant SQL7 => 'INSERT INTO item (account_id, name, note, category, shop_list_id) VALUES (?, ?, ?, ?, ?)';
-use constant SQL8 => 'SELECT id, account_id, name, note, category FROM item WHERE account_id = ?';
-use constant SQL9 => 'DELETE FROM item WHERE id = ?';
-use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
-use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
-use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
-use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
-use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
+use constant SQL0  => 'SELECT id FROM user WHERE account = ?';
+use constant SQL1  => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
+use constant SQL2  => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
+use constant SQL3  => 'SELECT name FROM shop_list WHERE id = ?';
+use constant SQL8  => 'SELECT id, account_id, name, note, category FROM item WHERE account_id = ?';
 use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category, item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
 use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
+
+use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
+use constant SQL7  => 'INSERT INTO item (account_id, name, note, category, shop_list_id) VALUES (?, ?, ?, ?, ?)';
+use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
+
+use constant SQL5  => 'UPDATE shop_list SET name = ? WHERE id = ?';
+use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
+use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
+
+use constant SQL6  => 'DELETE FROM shop_list WHERE id = ?';
+use constant SQL9  => 'DELETE FROM item WHERE id = ?';
+use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
+use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
 
 our $VERSION = '0.01';
 
@@ -423,9 +426,11 @@ get '/help' => sub {
 
 sub _is_allowed {
     my ($name, $id) = @_;
+
     my $sth = database->prepare(SQL0);
     $sth->execute($name);
     my $account = ( $sth->fetchrow_array )[0];
+
     return $id == $account;
 }
 
