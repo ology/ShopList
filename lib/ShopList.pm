@@ -7,8 +7,6 @@ use Dancer2::Plugin::Auth::Extensible;
 use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
 
-use Data::Dumper;
-
 use constant SQL0  => 'SELECT id FROM user WHERE account = ?';
 use constant SQL1  => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
 use constant SQL2  => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
