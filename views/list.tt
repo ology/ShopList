@@ -47,7 +47,12 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <hr>
 <form name="new_item" action="/[% account %]/[% list %]/new_item" method="post">
     <input type="hidden" name="sort" value="[% sort %]">
-    <input type="text" name="new_name" id="new_name" placeholder="Item name">
+    <input type="text" name="new_name" id="new_name" placeholder="Item name" list="item_names">
+    <datalist id="item_names">
+[% FOR name IN names %]
+        <option>[% name %]</option>
+[% END %]
+    </datalist>
     <input type="text" name="new_category" id="new_category" placeholder="Category" list="category">
     <input type="text" name="new_note" id="new_note" placeholder="Note">
     <datalist id="category">

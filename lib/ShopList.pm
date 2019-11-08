@@ -15,6 +15,7 @@ use constant SQL8  => 'SELECT id, account_id, name, note, category FROM item WHE
 use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category, item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
 use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
+use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
 
 use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL7  => 'INSERT INTO item (account_id, name, note, category, shop_list_id) VALUES (?, ?, ?, ?, ?)';
@@ -124,7 +125,7 @@ get '/:account/:list' => require_login sub {
     my $items = $sth->fetchall_hashref('id');
 
     # List of all items that are not on the list
-    my @items = ();#map { $items->{$_} } sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items;
+    my @items = ();
     for my $i ( sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items ) {
         if ( !$items->{$i}{shop_list_id} || $items->{$i}{shop_list_id} == $list ) {
             push @items, $items->{$i};
@@ -140,6 +141,11 @@ get '/:account/:list' => require_login sub {
         $i->{shop_list} = $name;
     }
 
+    $sth = database->prepare(SQL18);
+    $sth->execute($account);
+    my $names = $sth->fetchall_arrayref;
+    $names = [ map { $_->[0] } @$names ];
+
     template 'list' => {
         user    => $user->{account},
         account => $account,
@@ -147,6 +153,7 @@ get '/:account/:list' => require_login sub {
         name    => $name,
         data    => \@show,
         items   => \@items,
+        names   => $names,
         sort    => $sort,
         cats    => $cats,
         shop_lists => $shop_lists,
