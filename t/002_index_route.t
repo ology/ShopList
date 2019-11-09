@@ -16,3 +16,6 @@ my $res  = $test->request( GET '/' );
 ok( $res->is_redirect, '[GET /] successful' );
 
 like( $res->header('location'), qr/login/, 'location login' );
+
+#$res = $test->request( GET $res->header('location') );
+#warn(__PACKAGE__,' ',__LINE__," MARK: ",$res->content,"\n");
