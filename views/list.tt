@@ -66,7 +66,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <ul>
 [% FOR item IN items %]
     <li>
-        <div class="border-rounded yellow-background">
+<div class="border-rounded yellow-background">
   <div class="tablewrapper">
     <div class="table">
       <div class="row">
@@ -104,7 +104,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
       </div>
     </div>
   </div>
-        </div>
+</div>
     </li>
 [% END %]
 </ul>
