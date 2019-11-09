@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use ShopList;
-use Test::More tests => 3;
+use Test::More tests => 5;
 use Plack::Test;
 use HTTP::Request::Common;
 use Ref::Util qw/ is_coderef /;
@@ -17,5 +17,7 @@ ok( $res->is_redirect, '[GET /] successful' );
 
 like( $res->header('location'), qr/login/, 'location login' );
 
-#$res = $test->request( GET $res->header('location') );
-#warn(__PACKAGE__,' ',__LINE__," MARK: ",$res->content,"\n");
+$res = $test->request( GET $res->header('location') );
+
+like( $res->content, qr/username/, 'username' );
+like( $res->content, qr/password/, 'password' );
