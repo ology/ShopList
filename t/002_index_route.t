@@ -5,7 +5,7 @@ use ShopList;
 use Test::More tests => 3;
 use Plack::Test;
 use HTTP::Request::Common;
-use Ref::Util qw<is_coderef>;
+use Ref::Util qw/ is_coderef /;
 
 my $app = ShopList->to_app;
 ok( is_coderef($app), 'Got app' );
