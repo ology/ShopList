@@ -13,23 +13,23 @@ li {
 }
 
 form {
-    display: inline;
+    display : inline;
 }
 
 input[type=checkbox]
 {
   /* Double-sized Checkboxes */
-  -ms-transform: scale(2); /* IE */
-  -moz-transform: scale(2); /* FF */
-  -webkit-transform: scale(2); /* Safari and Chrome */
-  -o-transform: scale(2); /* Opera */
-  transform: scale(2);
-  padding: 10px;
+  -ms-transform : scale(2); /* IE */
+  -moz-transform : scale(2); /* FF */
+  -webkit-transform : scale(2); /* Safari and Chrome */
+  -o-transform : scale(2); /* Opera */
+  transform : scale(2);
+  padding : 10px;
   margin : 10px;
 }
 
 select {
-    height: 35px;
+    height : 35px;
 }
 
 .button-light {
@@ -66,15 +66,15 @@ select {
 }
 
 .tablewrapper {
-  position: relative;
+  position : relative;
 }
 .table {
-  display: table;
+  display : table;
 }
 .row {
-  display: table-row;
+  display : table-row;
 }
 .cell {
-  display: table-cell;
+  display : table-cell;
 }
 
