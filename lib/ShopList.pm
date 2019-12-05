@@ -101,7 +101,7 @@ get '/:account/:list' => require_login sub {
     my @show = ();
 
     if ( $sort eq 'alpha' ) {
-        @show = map { $data->{$_} } sort { $data->{$a}{name} cmp $data->{$b}{name} } keys %$data;
+        @show = map { $data->{$_} } sort { CORE::fc( $data->{$a}{name} ) cmp CORE::fc( $data->{$b}{name} ) } keys %$data;
     }
     elsif ( $sort eq 'added' ) {
         @show = map { $data->{$_} } sort { $data->{$a}{id} <=> $data->{$b}{id} } keys %$data;
