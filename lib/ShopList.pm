@@ -110,7 +110,7 @@ get '/:account/:list' => require_login sub {
         my %cats = ();
 
         for my $id ( keys %$data ) {
-            my $cat = $data->{$id}{category} ? $data->{$id}{category} : 'uncategorized';
+            my $cat = $data->{$id}{category} ? ucfirst( lc $data->{$id}{category} ) : 'uncategorized';
             push @{ $cats{$cat} }, $data->{$id};
         }
 
