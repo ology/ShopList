@@ -65,7 +65,12 @@ Sort: <select name="sort" onchange="this.form.submit();">
 </form>
 <p>
 <div>
-<div style="float : left;">
+<div style="float : right;">
+[% FOR letter IN ['A' .. 'Z'] %]
+<p><b><a href="#[% letter %]" style="font-size : large;">[% letter %]</a></b>
+[% END %]
+</div>
+<div>
 <ul>
 [% FOR item IN items %]
     <li>
@@ -112,11 +117,6 @@ Sort: <select name="sort" onchange="this.form.submit();">
     </li>
 [% END %]
 </ul>
-</div>
-<div style="float : right;">
-[% FOR letter IN ['A' .. 'Z'] %]
-<p><b><a href="#[% letter %]" style="font-size : large;">[% letter %]</a></b>
-[% END %]
 </div>
 </div>
 
