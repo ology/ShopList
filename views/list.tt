@@ -35,6 +35,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
             [% IF item.note %]
             - [% item.note %]
             [% END %]
+<!--             <button type="submit" title="Edit item"><input type="image" name="new" src="/images/pen-colored.png" class="img-btn"></button> -->
         </form>
         </div>
         [% END %]
@@ -63,9 +64,16 @@ Sort: <select name="sort" onchange="this.form.submit();">
     <button type="submit" title="New item"><input type="image" name="new" src="/images/plus-colored.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 <p>
+<div>
+<div style="float : right;">
+[% FOR letter IN ['A' .. 'Z'] %]
+<p><a href="#[% letter %]">[% letter %]</a>
+[% END %]
+</div>
 <ul>
 [% FOR item IN items %]
     <li>
+<a name="[% item.name.substr(0,1).ucfirst %]"></a>
 <div class="border-rounded yellow-background">
   <div class="tablewrapper">
     <div class="table">
@@ -108,4 +116,5 @@ Sort: <select name="sort" onchange="this.form.submit();">
     </li>
 [% END %]
 </ul>
+</div>
 
