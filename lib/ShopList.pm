@@ -126,7 +126,7 @@ get '/:account/:list' => require_login sub {
 
     # List of all items that are not on the list
     my @items = ();
-    for my $i ( sort { $items->{$a}{name} cmp $items->{$b}{name} } keys %$items ) {
+    for my $i ( sort { CORE::fc( $items->{$a}{name} ) cmp CORE::fc( $items->{$b}{name} ) } keys %$items ) {
         if ( !$items->{$i}{shop_list_id} || $items->{$i}{shop_list_id} == $list ) {
             push @items, $items->{$i};
         }
