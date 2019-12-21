@@ -67,7 +67,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <div>
 <div style="float : right;">
 [% FOR letter IN ['A' .. 'Z'] %]
-<p><a href="#[% letter %]">[% letter %]</a>
+<p><a href="#[% letter %]" style="font-size : large;">[% letter %]</a>
 [% END %]
 </div>
 <ul>
