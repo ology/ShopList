@@ -70,6 +70,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <p><b><a href="#[% letter %]" style="font-size : large;">[% letter %]</a></b>
 [% END %]
 </div>
+<div style="float : left;">
 <ul>
 [% FOR item IN items %]
     <li>
@@ -116,5 +117,6 @@ Sort: <select name="sort" onchange="this.form.submit();">
     </li>
 [% END %]
 </ul>
+</div>
 </div>
 
