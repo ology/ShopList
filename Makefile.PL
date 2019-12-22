@@ -8,19 +8,22 @@ my $eumm_version = $ExtUtils::MakeMaker::VERSION;
 $eumm_version =~ s/_//;
 
 WriteMakefile(
-    NAME                => 'ShopList',
-    AUTHOR              => q{Gene Boggs <gene@ology.net>},
-    VERSION_FROM        => 'lib/ShopList.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
+    NAME         => 'ShopList',
+    AUTHOR       => q{Gene Boggs <gene@ology.net>},
+    VERSION_FROM => 'lib/ShopList.pm',
+    ABSTRACT     => 'YOUR APPLICATION ABSTRACT',
     ($eumm_version >= 6.3001
       ? ('LICENSE'=> 'perl')
       : ()),
-    PL_FILES            => {},
+    PL_FILES => {},
     PREREQ_PM => {
         'Test::More' => 0,
-        'YAML'       => 0,
-        'Dancer2'     => 0.208001,
+        'YAML' => 0,
+        'Dancer2' => 0.208001,
+        'Dancer2::Plugin::Auth::Extensible' => 0,
+        'Dancer2::Plugin::Auth::Extensible::Provider::Database' => 0,
+        'Dancer2::Plugin::Database' => 0,
     },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'ShopList-*' },
+    dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES => 'ShopList-*' },
 );
