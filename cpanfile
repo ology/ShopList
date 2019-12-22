@@ -1,4 +1,7 @@
 requires "Dancer2" => "0.208001";
+requires "Dancer2::Plugin::Auth::Extensible" => "0";
+requires "Dancer2::Plugin::Auth::Extensible::Provider::Database" => "0";
+requires "Dancer2::Plugin::Database" => "0";
 
 recommends "YAML"             => "0";
 recommends "URL::Encode::XS"  => "0";
