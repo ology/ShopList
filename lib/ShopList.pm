@@ -24,6 +24,7 @@ use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id,
 use constant SQL5  => 'UPDATE shop_list SET name = ? WHERE id = ?';
 use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
+use constant SQL19 => 'UPDATE list_item SET shop_list_id = ? WHERE id = ?';
 
 use constant SQL6  => 'DELETE FROM shop_list WHERE id = ?';
 use constant SQL9  => 'DELETE FROM item WHERE id = ?';
@@ -329,6 +330,30 @@ post '/:account/:list/:row/update_row' => require_login sub {
         my $sth = database->prepare(SQL14);
         $sth->execute($row);
     }
+
+    redirect "/$account/$list?sort=$sort";
+};
+
+=head2 /account/list/row/move_item
+
+Move an item from one list to another.
+
+=cut
+
+post '/:account/:list/:row/move_item' => require_login sub {
+    my $user = logged_in_user;
+
+    my $account = route_parameters->get('account');
+    my $list    = route_parameters->get('list');
+    my $row     = route_parameters->get('row');
+    my $sort    = body_parameters->get('sort') || 'alpha';
+    my $new     = body_parameters->get('move_shop_list');
+
+    send_error( 'Not allowed', 403 )
+        unless _is_allowed( $user->{account}, $account );
+
+    my $sth = database->prepare(SQL19);
+    $sth->execute( $new, $row );
 
     redirect "/$account/$list?sort=$sort";
 };

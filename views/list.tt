@@ -37,6 +37,19 @@ Sort: <select name="sort" onchange="this.form.submit();">
             [% END %]
 <!--             <button type="submit" title="Edit item"><input type="image" name="new" src="/images/pen-colored.png" class="img-btn"></button> -->
         </form>
+        <form name="move_item" action="/[% account %]/[% list %]/[% item.id %]/move_item" method="post">
+            <input type="hidden" name="sort" value="[% sort %]">
+            <select name="move_shop_list" id="move_shop_list" onchange="this.form.submit();">
+                <option value="">Move to...</option>
+            [% FOR shop_list IN shop_lists %]
+                [% FOR key IN shop_list.keys %]
+                    [% IF key != name %]
+                <option value="[% shop_list.$key %]">[% key %]</option>
+                    [% END %]
+                [% END %]
+            [% END %]
+            </select>
+        </form>
         </div>
         [% END %]
     </li>
