@@ -68,9 +68,6 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <div>
 [% FOR letter IN ['A' .. 'Z'] %]
 <b><a href="#[% letter %]" style="font-size : large;">[% letter %]</a></b> &nbsp;
-    [% IF letter == 'M' %]
-<br>
-    [% END %]
 [% END %]
 <p>
 </div>
