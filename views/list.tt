@@ -81,6 +81,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <p>
 <div>
 <div>
+<a href="#Letters" id="letters"></a>
 [% FOR letter IN ['A' .. 'Z'] %]
 <b><a href="#[% letter %]" style="font-size : large;">[% letter %]</a></b> &nbsp;
 [% END %]
@@ -153,7 +154,7 @@ function scrollFunction() {
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    var letters = document.getElementById('letters');
+    letters.scrollIntoView();
 }
 </script>
