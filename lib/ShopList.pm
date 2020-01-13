@@ -18,7 +18,7 @@ use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
 
 use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
-use constant SQL7  => 'INSERT INTO item (account_id, name, note, category, shop_list_id) VALUES (?, ?, ?, ?, ?)';
+use constant SQL7  => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
 use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
 
 use constant SQL5  => 'UPDATE shop_list SET name = ? WHERE id = ?';
@@ -379,7 +379,7 @@ post '/:account/:list/new_item' => require_login sub {
 
     if ( $name ) {
         my $sth = database->prepare(SQL7);
-        $sth->execute( $account, $name, $note, $cat, $list );
+        $sth->execute( $account, $name, $note, $cat );
 
         my $item_id = database->sqlite_last_insert_rowid;
 
