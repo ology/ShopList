@@ -16,15 +16,14 @@
             <input type="hidden" value="[% item.id %]">
             <select name="shop_list">
                 <option value="">Move to...</option>
-            [% FOR shop_list IN shop_lists %]
-                [% FOR key IN shop_list.keys %]
+        [% FOR shop_list IN shop_lists %]
+            [% FOR key IN shop_list.keys %]
                 <option value="[% shop_list.$key %]">[% key %]</option>
-                [% END %]
             [% END %]
+        [% END %]
             </select>
         </form>
         </div>
-        [% END %]
     </li>
     [% END %]
 </ul>
