@@ -16,6 +16,7 @@ use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, it
 use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
+use constant SQL20 => 'SELECT * FROM item WHERE account_id = ? AND name LIKE ? ORDER BY name';
 
 use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL7  => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
@@ -444,6 +445,44 @@ get '/:account/:list/:item/delete_item' => require_login sub {
     $sth->execute($item);
 
     redirect "/$account/$list?sort=$sort";
+};
+
+=head2 /account/search/items
+
+Search items.
+
+=cut
+
+get '/:account/search/items' => require_login sub {
+    my $user = logged_in_user;
+
+    my $account = route_parameters->get('account');
+    my $query   = query_parameters->get('query');
+
+    send_error( 'Not allowed', 403 )
+        unless _is_allowed( $user->{account}, $account );
+
+    my $data;
+    my $sth;
+
+    if ( $query ) {
+        $sth = database->prepare(SQL20);
+        $sth->execute( $account, '%' . $query . '%' );
+        $data = $sth->fetchall_hashref('name');
+        $data = [ map { $data->{$_} } sort { CORE::fc($a) cmp CORE::fc($b) } keys %$data ];
+    }
+
+    $sth = database->prepare(SQL17);
+    $sth->execute($account);
+    my $shop_lists = $sth->fetchall_hashref('name');
+    $shop_lists = [ map { { $_ => $shop_lists->{$_}{id} } } sort { $a cmp $b } keys %$shop_lists ];
+
+    template 'search' => {
+        user       => $user->{account},
+        account    => $account,
+        data       => $data,
+        shop_lists => $shop_lists,
+    };
 };
 
 get '/help' => sub {
