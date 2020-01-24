@@ -11,11 +11,7 @@
 <ul>
     [% FOR item IN data %]
     <li>
-        [% IF item.shop_list_id %]
-        <div class="border-rounded green-background">
-        [% ELSE %]
         <div class="border-rounded yellow-background">
-        [% END %]
         [% item.name %] - [% item.category %]
         <form action="/[% account %]/item/list" method="post">
             <input type="hidden" name="item_id" value="[% item.id %]">
