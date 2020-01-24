@@ -17,6 +17,7 @@ use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? A
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
 use constant SQL20 => 'SELECT * FROM item WHERE account_id = ? AND name LIKE ? ORDER BY name';
+use constant SQL22 => 'SELECT * FROM list_item WHERE id = ?';
 
 use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL7  => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
@@ -26,6 +27,7 @@ use constant SQL5  => 'UPDATE shop_list SET name = ? WHERE id = ?';
 use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL19 => 'UPDATE list_item SET shop_list_id = ? WHERE id = ?';
+use constant SQL21 => 'UPDATE list_item SET shop_list_id = ? WHERE item_id = ?';
 
 use constant SQL6  => 'DELETE FROM shop_list WHERE id = ?';
 use constant SQL9  => 'DELETE FROM item WHERE id = ?';
@@ -483,6 +485,35 @@ get '/:account/search/items' => require_login sub {
         data       => $data,
         shop_lists => $shop_lists,
     };
+};
+
+post '/:account/item/list' => require_login sub {
+    my $user = logged_in_user;
+
+    my $account      = route_parameters->get('account');
+    my $item_id      = body_parameters->get('item_id');
+    my $shop_list_id = body_parameters->get('shop_list_id');
+    my $shop_list    = body_parameters->get('shop_list');
+
+    send_error( 'Not allowed', 403 )
+        unless _is_allowed( $user->{account}, $account );
+
+    if ( $shop_list && ( !$shop_list_id || $shop_list != $shop_list_id ) ) {
+        my $sth = database->prepare(SQL22);
+        $sth->execute($item_id);
+        my $id = ( $sth->fetchrow_array )[0];
+
+        if ( $id ) {
+            $sth = database->prepare(SQL21);
+            $sth->execute( $shop_list, $item_id );
+        }
+        else {
+            $sth = database->prepare(SQL11);
+            $sth->execute( $account, $shop_list, $item_id, 1 );
+        }
+    }
+
+    redirect "/$account/search/items";
 };
 
 get '/help' => sub {
