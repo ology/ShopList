@@ -1,0 +1,31 @@
+<a href="/" class="button" title="Return to lists">
+    <input type="image" name="go" src="/images/backward-colored.png" class="img-btn">
+</a>
+
+<form action="/[% account %]/search/items" method="get">
+</form>
+
+[% IF data.size %]
+<p>
+<ul>
+    [% FOR item IN data %]
+    <li>
+        <div class="border-rounded yellow-background">
+        [% item.title %]
+        <form action="/[% account %]/item/list" method="post">
+            <input type="hidden" value="[% item.id %]">
+            <select name="shop_list">
+                <option value="">Move to...</option>
+            [% FOR shop_list IN shop_lists %]
+                [% FOR key IN shop_list.keys %]
+                <option value="[% shop_list.$key %]">[% key %]</option>
+                [% END %]
+            [% END %]
+            </select>
+        </form>
+        </div>
+        [% END %]
+    </li>
+    [% END %]
+</ul>
+[% END %]
