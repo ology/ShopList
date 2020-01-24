@@ -19,16 +19,11 @@
         [% item.name %] - [% item.category %]
         <form action="/[% account %]/item/list" method="post">
             <input type="hidden" name="item_id" value="[% item.id %]">
-            <input type="hidden" name="shop_list_id" value="[% item.shop_list_id %]">
             <select name="shop_list" onchange="this.form.submit();">
                 <option value="">Move to...</option>
         [% FOR shop_list IN shop_lists %]
             [% FOR key IN shop_list.keys %]
-                <option value="[% shop_list.$key %]"
-                [% IF shop_list.$key == item.shop_list_id %]
-                    selected="selected"
-                [% END %]
-                >[% key %]</option>
+                <option value="[% shop_list.$key %]">[% key %]</option>
             [% END %]
         [% END %]
             </select>
