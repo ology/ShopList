@@ -490,15 +490,14 @@ get '/:account/search/items' => require_login sub {
 post '/:account/item/list' => require_login sub {
     my $user = logged_in_user;
 
-    my $account      = route_parameters->get('account');
-    my $item_id      = body_parameters->get('item_id');
-    my $shop_list_id = body_parameters->get('shop_list_id');
-    my $shop_list    = body_parameters->get('shop_list');
+    my $account   = route_parameters->get('account');
+    my $item_id   = body_parameters->get('item_id');
+    my $shop_list = body_parameters->get('shop_list');
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
 
-    if ( $shop_list && ( !$shop_list_id || $shop_list != $shop_list_id ) ) {
+    if ( $shop_list ) {
         my $sth = database->prepare(SQL22);
         $sth->execute($item_id);
         my $id = ( $sth->fetchrow_array )[0];
