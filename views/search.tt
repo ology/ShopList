@@ -11,7 +11,11 @@
 <ul>
     [% FOR item IN data %]
     <li>
+        [% IF item.shop_list_id %]
+        <div class="border-rounded green-background">
+        [% ELSE %]
         <div class="border-rounded yellow-background">
+        [% END %]
         [% item.name %] - [% item.category %]
         <form action="/[% account %]/item/list" method="post">
             <input type="hidden" name="item_id" value="[% item.id %]">
@@ -19,7 +23,11 @@
                 <option value="">Move to...</option>
         [% FOR shop_list IN shop_lists %]
             [% FOR key IN shop_list.keys %]
-                <option value="[% shop_list.$key %]">[% key %]</option>
+                <option value="[% shop_list.$key %]"
+                [% IF shop_list.$key == item.shop_list_id %]
+                    selected="selected"
+                [% END %]
+                >[% key %]</option>
             [% END %]
         [% END %]
             </select>
