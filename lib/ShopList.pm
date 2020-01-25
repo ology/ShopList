@@ -484,6 +484,7 @@ get '/:account/search/items' => require_login sub {
         account    => $account,
         data       => $data,
         shop_lists => $shop_lists,
+        query      => $query,
     };
 };
 
@@ -493,6 +494,7 @@ post '/:account/item/list' => require_login sub {
     my $account   = route_parameters->get('account');
     my $item_id   = body_parameters->get('item_id');
     my $shop_list = body_parameters->get('shop_list');
+    my $query     = body_parameters->get('query');
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -513,7 +515,7 @@ post '/:account/item/list' => require_login sub {
         }
     }
 
-    redirect "/$account/search/items";
+    redirect "/$account/search/items?query=$query";
 };
 
 get '/help' => sub {

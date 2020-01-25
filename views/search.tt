@@ -3,7 +3,7 @@
 </a>
 
 <form action="/[% account %]/search/items" method="get">
-    <input type="text" name="query" placeholder="Search">
+    <input type="text" name="query" value="[% query %]" placeholder="Search">
 </form>
 
 [% IF data.size %]
@@ -19,6 +19,7 @@
         [% item.name %] - [% item.category %]
         <form action="/[% account %]/item/list" method="post">
             <input type="hidden" name="item_id" value="[% item.id %]">
+            <input type="hidden" name="query" value="[% query %]">
             <select name="shop_list" onchange="this.form.submit();">
                 <option value="">Move to...</option>
         [% FOR shop_list IN shop_lists %]
