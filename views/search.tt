@@ -16,7 +16,7 @@
         [% ELSE %]
         <div class="border-rounded yellow-background">
         [% END %]
-        [% item.name %] - [% item.category %] ([% item.shop_list_id %])
+        [% item.name %] - [% item.category %]
         <form action="/[% account %]/item/list" method="post">
             <input type="hidden" name="item_id" value="[% item.id %]">
             <select name="shop_list" onchange="this.form.submit();">
