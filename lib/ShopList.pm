@@ -17,7 +17,7 @@ use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? A
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
 use constant SQL20 => 'SELECT item.id, item.name, item.category, list_item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE item.account_id = ? AND item.name LIKE ? ORDER BY name';
-use constant SQL22 => 'SELECT * FROM list_item WHERE id = ?';
+use constant SQL22 => 'SELECT id FROM list_item WHERE item_id = ?';
 
 use constant SQL4  => 'INSERT INTO shop_list (account_id, name) VALUES (?, ?)';
 use constant SQL7  => 'INSERT INTO item (account_id, name, note, category) VALUES (?, ?, ?, ?)';
@@ -500,7 +500,8 @@ post '/:account/item/list' => require_login sub {
     if ( $shop_list ) {
         my $sth = database->prepare(SQL22);
         $sth->execute($item_id);
-        my $id = ( $sth->fetchrow_array )[0];
+        my @ids = $sth->fetchrow_array;
+        my $id = $ids[0];
 
         if ( $id ) {
             $sth = database->prepare(SQL21);
