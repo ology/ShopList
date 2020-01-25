@@ -33,6 +33,7 @@ use constant SQL6  => 'DELETE FROM shop_list WHERE id = ?';
 use constant SQL9  => 'DELETE FROM item WHERE id = ?';
 use constant SQL13 => 'DELETE FROM list_item WHERE shop_list_id = ?';
 use constant SQL14 => 'DELETE FROM list_item WHERE id = ?';
+use constant SQL23 => 'DELETE FROM item WHERE shop_list_id = ?';
 
 our $VERSION = '0.01';
 
@@ -225,6 +226,10 @@ get '/:account/:list/delete_list' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL6);
+    $sth->execute($list);
+
+    # Delete attached items
+    $sth = database->prepare(SQL23);
     $sth->execute($list);
 
     redirect '/';
