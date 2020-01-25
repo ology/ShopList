@@ -33,6 +33,11 @@
         [% END %]
             </select>
         </form>
+        [% IF item.shop_list_id %]
+        <a href="/[% account %]/[% item.shop_list_id %]" class="button">
+            <input type="image" name="go" src="/images/forward-colored.png" class="img-btn" title="Go to list">
+        </a>
+        [% END %]
         </div>
     </li>
     [% END %]
