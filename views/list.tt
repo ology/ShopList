@@ -83,7 +83,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <div>
 <a href="#Letters" id="letters"></a>
 [% FOR letter IN ['A' .. 'Z'] %]
-<a href="#[% letter %]" class="button" style="width: 50px;">[% letter %]</a> &nbsp;
+<a href="#[% letter %]" class="button" style="width: 40px; border: 1px solid #bbb;">[% letter %]</a> &nbsp;
 [% END %]
 <p>
 </div>
