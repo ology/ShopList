@@ -1,3 +1,5 @@
+<b>Shopping List</b>
+<p></p>
 <form name="new_list" action="/[% account %]/new_list" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="List name">
     <button type="submit" title="New list"><input type="image" name="new" src="/images/plus-colored.png" class="img-btn" onchange="this.form.submit();"></button>
