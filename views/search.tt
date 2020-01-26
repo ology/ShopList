@@ -4,6 +4,7 @@
 
 <form action="/[% account %]/search/items" method="get">
     <input type="text" name="query" value="[% query %]" placeholder="Search">
+    <button type="submit" title="Search items"><input type="image" name="search" src="/images/magnifying-glass-colored.png" class="img-btn"></button>
 </form>
 
 [% IF data.size %]
