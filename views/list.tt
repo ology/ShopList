@@ -114,7 +114,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
     [% END %]
             </datalist>
             <select name="new_shop_list" id="new_shop_list">
-                <option value="">List name...</option>
+                <option value="">Assign...</option>
     [% FOR shop_list IN shop_lists %]
         [% FOR key IN shop_list.keys %]
                 <option value="[% shop_list.$key %]" [% IF item.shop_list_id == shop_list.$key %]selected="selected"[% END %]>[% key %]</option>
