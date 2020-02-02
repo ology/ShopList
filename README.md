@@ -11,6 +11,7 @@ Before being able to run the app, you must first create the database and users:
 
 Phone UI:
 
-*Shopping list item page top:*
-
-![Item list](https://github.com/ology/ShopList/blob/master/public/images/Shopping-List-App.png)
+![Lists](https://github.com/ology/ShopList/blob/master/public/images/ShopList-01.png)
+![Item List](https://github.com/ology/ShopList/blob/master/public/images/ShopList-02.png)
+![Search](https://github.com/ology/ShopList/blob/master/public/images/ShopList-03.png)
+![Add Item](https://github.com/ology/ShopList/blob/master/public/images/ShopList-04.png)
