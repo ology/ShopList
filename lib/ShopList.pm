@@ -376,7 +376,7 @@ post '/:account/new/item' => require_login sub {
     my $user = logged_in_user;
 
     my $account = route_parameters->get('account');
-    my $query   = body_parameters->get('query');
+    my $query   = body_parameters->get('query') || '';
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
