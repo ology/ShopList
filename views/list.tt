@@ -65,7 +65,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
 [% FOR letter IN ['A' .. 'Z'] %]
 <a href="#[% letter %]" class="button" style="width: 40px; border: 1px solid #bbb;">[% letter %]</a>
 [% END %]
-<a href="/[% account %]/search/items" class="button" title="Search items"><input type="image" name="search" src="/images/magnifying-glass-colored.png" class="img-btn"></a>
+<a href="/[% account %]/search/items" class="button" title="Search items"><input type="image" name="search" src="/images/magnifying-glass-colored.png" class="img-btn" style="width: 40px;"></a>
 </div>
 <p></p>
 <div>
