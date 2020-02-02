@@ -379,6 +379,7 @@ post '/:account/new/item' => require_login sub {
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
+    my $list    = body_parameters->get('shop_list') || undef;
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -390,7 +391,7 @@ post '/:account/new/item' => require_login sub {
         my $item_id = database->sqlite_last_insert_rowid;
 
         $sth = database->prepare(SQL11);
-        $sth->execute( $account, undef, $item_id, 1 );
+        $sth->execute( $account, $list, $item_id, 1 );
     }
 
     redirect "/$account/search/items?query=$name";

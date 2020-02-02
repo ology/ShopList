@@ -22,6 +22,18 @@
         <option>[% cat %]</option>
 [% END %]
     </datalist>
+    <select name="shop_list">
+        <option value="">List...</option>
+        [% FOR shop_list IN shop_lists %]
+            [% FOR key IN shop_list.keys %]
+        <option value="[% shop_list.$key %]"
+                [% IF shop_list.$key == item.shop_list_id %]
+            selected="selected"
+                [% END %]
+        >[% key %]</option>
+            [% END %]
+        [% END %]
+    </select>
     <button type="submit" title="New item"><input type="image" name="new" src="/images/plus-colored.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
 
