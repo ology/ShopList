@@ -9,7 +9,6 @@
 
 <p></p>
 <form name="new_item" action="/[% account %]/new/item" method="post">
-    <input type="hidden" name="query" value="[% query %]">
     <input type="text" name="new_name" id="new_name" placeholder="Item name" list="item_names">
     <datalist id="item_names">
 [% FOR name IN names %]
