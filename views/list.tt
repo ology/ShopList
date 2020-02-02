@@ -61,18 +61,18 @@ Sort: <select name="sort" onchange="this.form.submit();">
 <p>No items yet.</p>
 [% END %]
 <div>
-<div>
 <a href="#Letters" id="letters"></a>
 [% FOR letter IN ['A' .. 'Z'] %]
 <a href="#[% letter %]" class="button" style="width: 40px; border: 1px solid #bbb;">[% letter %]</a>
 [% END %]
-<p>
 </div>
+<p></p>
+<div>
 <div>
 <ul>
 [% FOR item IN items %]
     <li>
-<a name="[% item.name.substr(0,1).ucfirst %]"></a>
+<a name="[% item.name.substr(0,1).upper %]"></a>
 <div class="border-rounded yellow-background">
   <div class="tablewrapper">
     <div class="table">
