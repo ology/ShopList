@@ -482,12 +482,18 @@ get '/:account/search/items' => require_login sub {
     my $shop_lists = $sth->fetchall_hashref('name');
     $shop_lists = [ map { { $_ => $shop_lists->{$_}{id} } } sort { $a cmp $b } keys %$shop_lists ];
 
+    $sth = database->prepare(SQL16);
+    $sth->execute($account);
+    my $cats = $sth->fetchall_arrayref;
+    $cats = [ map { $_->[0] } @$cats ];
+
     template 'search' => {
         user       => $user->{account},
         account    => $account,
         data       => $data,
         shop_lists => $shop_lists,
         query      => $query,
+        cats       => $cats,
     };
 };
 
