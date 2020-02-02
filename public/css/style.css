@@ -45,11 +45,13 @@ select {
 .green-background {
     background-color : #ccffcc;
     display : inline-block;
+    padding : 3px;
 }
 
 .yellow-background {
     background-color : #ffffcc;
     display : inline-block;
+    padding : 3px;
 }
 
 .img-btn {
