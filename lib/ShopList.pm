@@ -390,7 +390,7 @@ post '/:account/new/item' => require_login sub {
         my $item_id = database->sqlite_last_insert_rowid;
 
         $sth = database->prepare(SQL11);
-        $sth->execute( $account, 0, $item_id, 1 );
+        $sth->execute( $account, undef, $item_id, 1 );
     }
 
     redirect "/$account/search/items?query=$name";
