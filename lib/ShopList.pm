@@ -60,7 +60,7 @@ get '/' => require_login sub {
     $sth->execute( $user->{account} );
     my $data = $sth->fetchall_hashref('id');
 
-    my @data = map { $data->{$_} } sort { $a <=> $b } keys %$data;
+    my @data = map { $data->{$_} } sort { CORE::fc( $data->{$a}{name} ) cmp CORE::fc( $data->{$b}{name} ) } keys %$data;
 
     $sth = database->prepare(SQL0);
     $sth->execute( $user->{account} );
