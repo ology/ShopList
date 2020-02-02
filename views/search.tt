@@ -26,11 +26,7 @@
         <option value="">List...</option>
         [% FOR shop_list IN shop_lists %]
             [% FOR key IN shop_list.keys %]
-        <option value="[% shop_list.$key %]"
-                [% IF shop_list.$key == item.shop_list_id %]
-            selected="selected"
-                [% END %]
-        >[% key %]</option>
+        <option value="[% shop_list.$key %]">[% key %]</option>
             [% END %]
         [% END %]
     </select>
