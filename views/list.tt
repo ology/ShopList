@@ -60,25 +60,6 @@ Sort: <select name="sort" onchange="this.form.submit();">
 [% ELSE %]
 <p>No items yet.</p>
 [% END %]
-<hr>
-<form name="new_item" action="/[% account %]/[% list %]/new_item" method="post">
-    <input type="hidden" name="sort" value="[% sort %]">
-    <input type="text" name="new_name" id="new_name" placeholder="Item name" list="item_names">
-    <datalist id="item_names">
-[% FOR name IN names %]
-        <option>[% name %]</option>
-[% END %]
-    </datalist>
-    <input type="text" name="new_note" id="new_note" placeholder="Note">
-    <input type="text" name="new_category" id="new_category" placeholder="Category" list="category">
-    <datalist id="category">
-[% FOR cat IN cats %]
-        <option>[% cat %]</option>
-[% END %]
-    </datalist>
-    <button type="submit" title="New item"><input type="image" name="new" src="/images/plus-colored.png" class="img-btn" onchange="this.form.submit();"></button>
-</form>
-<p>
 <div>
 <div>
 <a href="#Letters" id="letters"></a>

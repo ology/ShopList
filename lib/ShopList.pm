@@ -366,21 +366,20 @@ post '/:account/:list/:row/move_item' => require_login sub {
     redirect "/$account/$list?sort=$sort";
 };
 
-=head2 /account/list/new_item
+=head2 /account/new/item
 
 Add an item.
 
 =cut
 
-post '/:account/:list/new_item' => require_login sub {
+post '/:account/new/item' => require_login sub {
     my $user = logged_in_user;
 
     my $account = route_parameters->get('account');
-    my $list    = route_parameters->get('list');
+    my $query   = body_parameters->get('query');
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
-    my $sort    = body_parameters->get('sort') || 'alpha';
 
     send_error( 'Not allowed', 403 )
         unless _is_allowed( $user->{account}, $account );
@@ -392,10 +391,10 @@ post '/:account/:list/new_item' => require_login sub {
         my $item_id = database->sqlite_last_insert_rowid;
 
         $sth = database->prepare(SQL11);
-        $sth->execute( $account, $list, $item_id, 1 );
+        $sth->execute( $account, 0, $item_id, 1 );
     }
 
-    redirect "/$account/$list?sort=$sort";
+    redirect "/$account/search/items?query=$query";
 };
 
 =head2 /account/list/item/update_item
