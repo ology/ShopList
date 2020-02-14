@@ -8,6 +8,12 @@
 </form>
 
 <p></p>
+<div class="tablewrapper">
+  <div class="table">
+    <div class="row">
+      <div class="cell" style="width:38px;">
+      </div>
+      <div class="cell">
 <form name="new_item" action="/[% account %]/new/item" method="post">
     <input type="text" name="new_name" id="new_name" placeholder="Item name" list="item_names">
     <datalist id="item_names">
@@ -32,6 +38,10 @@
     </select>
     <button type="submit" title="New item"><input type="image" name="new" src="/images/plus-colored.png" class="img-btn" onchange="this.form.submit();"></button>
 </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 [% IF data.size %]
 <p></p>
