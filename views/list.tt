@@ -28,9 +28,17 @@ Sort: <select name="sort" onchange="this.form.submit();">
         <b>[% item.title %]</b>
         [% ELSE %]
         <div class="border-rounded green-background">
+  <div class="tablewrapper">
+    <div class="table">
+      <div class="row">
+        <div class="cell">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="checkbox" name="active" id="active" onchange="this.form.submit();" checked title="Remove item from list">
+        </form>
+        </div>
+        <div class="cell">
+        <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
             <input type="number" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" style=width:4em;">
 <!--             <button type="submit" title="Update quantity"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button> -->
             [% item.name %]
@@ -52,6 +60,9 @@ Sort: <select name="sort" onchange="this.form.submit();">
             [% END %]
             </select>
         </form>
+      </div>
+    </div>
+  </div>
         </div>
         [% END %]
     </li>
