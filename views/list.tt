@@ -39,6 +39,7 @@ Sort: <select name="sort" onchange="this.form.submit();">
         </div>
         <div class="cell">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
+            <input type="hidden" name="active" value="1">
             <input type="hidden" name="sort" value="[% sort %]">
             <input type="number" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" style=width:4em;">
         </form>
