@@ -39,14 +39,13 @@ Sort: <select name="sort" onchange="this.form.submit();">
         </div>
         <div class="cell">
         <form name="update_row" action="/[% account %]/[% list %]/[% item.id %]/update_row" method="post">
+            <input type="hidden" name="sort" value="[% sort %]">
             <input type="number" name="new_quantity" id="new_quantity" placeholder="#" value="[% item.quantity %]" style=width:4em;">
-<!--             <button type="submit" title="Update quantity"><input type="image" name="new" src="/images/incoming-colored.png" class="img-btn" onchange="this.form.submit();"></button> -->
+        </form>
             [% item.name %]
             [% IF item.note %]
             - [% item.note %]
             [% END %]
-<!--             <button type="submit" title="Edit item"><input type="image" name="new" src="/images/pen-colored.png" class="img-btn"></button> -->
-        </form>
         <form name="move_item" action="/[% account %]/[% list %]/[% item.id %]/move_item" method="post">
             <input type="hidden" name="sort" value="[% sort %]">
             <select name="move_shop_list" id="move_shop_list" onchange="this.form.submit();">
