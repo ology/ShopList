@@ -95,7 +95,7 @@ get '/:account/:list' => require_login sub {
 
     my $cost = 0;
     for my $datum (keys %$data) {
-        $cost += $data->{$datum}{cost};
+        $cost += $data->{$datum}{cost} * $data->{$datum}{quantity};
     }
 
     $sth = database->prepare(SQL16);
