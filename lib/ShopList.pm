@@ -9,10 +9,10 @@ use Dancer2::Plugin::Database;
 
 use constant SQL0  => 'SELECT id FROM user WHERE account = ?';
 use constant SQL1  => 'SELECT shop_list.id, shop_list.name FROM user INNER JOIN shop_list ON shop_list.account_id = user.id WHERE user.account = ?';
-use constant SQL2  => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
+use constant SQL2  => 'SELECT list_item.id, list_item.item_id, list_item.quantity, item.note, item.name, item.category, item.cost FROM list_item INNER JOIN item ON item.id = list_item.item_id WHERE list_item.account_id = ? AND list_item.shop_list_id = ?';
 use constant SQL3  => 'SELECT name FROM shop_list WHERE id = ?';
 use constant SQL8  => 'SELECT id, account_id, name, note, category FROM item WHERE account_id = ?';
-use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category, item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
+use constant SQL15 => 'SELECT item.id, item.account_id, item.name, item.note, item.category, item.cost, item.shop_list_id FROM item LEFT OUTER JOIN list_item ON item.id = list_item.item_id WHERE list_item.item_id IS null AND item.account_id = ?';
 use constant SQL16 => "SELECT DISTINCT category FROM item WHERE account_id = ? AND category <> '' ORDER BY category";
 use constant SQL17 => 'SELECT id, name FROM shop_list WHERE account_id = ?';
 use constant SQL18 => 'SELECT name FROM item WHERE account_id = ? ORDER BY name';
@@ -24,7 +24,7 @@ use constant SQL7  => 'INSERT INTO item (account_id, name, note, category) VALUE
 use constant SQL11 => 'INSERT INTO list_item (account_id, shop_list_id, item_id, quantity) VALUES (?, ?, ?, ?)';
 
 use constant SQL5  => 'UPDATE shop_list SET name = ? WHERE id = ?';
-use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, shop_list_id = ? WHERE id = ?';
+use constant SQL10 => 'UPDATE item SET name = ?, note = ?, category = ?, cost = ?, shop_list_id = ? WHERE id = ?';
 use constant SQL12 => 'UPDATE list_item SET quantity = ? WHERE id = ?';
 use constant SQL19 => 'UPDATE list_item SET shop_list_id = ? WHERE id = ?';
 use constant SQL21 => 'UPDATE list_item SET shop_list_id = ? WHERE item_id = ?';
@@ -93,6 +93,11 @@ get '/:account/:list' => require_login sub {
     $sth->execute( $account, $list );
     my $data = $sth->fetchall_hashref('id');
 
+    my $cost = 0;
+    for my $datum (keys %$data) {
+        $cost += $data->{$datum}{cost};
+    }
+
     $sth = database->prepare(SQL16);
     $sth->execute($account);
     my $cats = $sth->fetchall_arrayref;
@@ -157,6 +162,7 @@ get '/:account/:list' => require_login sub {
         list    => $list,
         name    => $name,
         data    => \@show,
+        cost    => sprintf('%.2f', $cost),
         items   => \@items,
         names   => $names,
         sort    => $sort,
@@ -412,6 +418,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
     my $name    = body_parameters->get('new_name');
     my $note    = body_parameters->get('new_note');
     my $cat     = body_parameters->get('new_category') || '';
+    my $cost    = body_parameters->get('new_cost') || 0;
     my $shoplst = body_parameters->get('new_shop_list') || '';
     my $active  = body_parameters->get('active');
     my $sort    = body_parameters->get('sort') || 'alpha';
@@ -420,7 +427,7 @@ post '/:account/:list/:item/update_item' => require_login sub {
         unless _is_allowed( $user->{account}, $account );
 
     my $sth = database->prepare(SQL10);
-    $sth->execute( $name, $note, $cat, $shoplst, $item );
+    $sth->execute( $name, $note, $cat, $cost, $shoplst, $item );
 
     if ( $active ) {
         $sth = database->prepare(SQL11);

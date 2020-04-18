@@ -40,7 +40,8 @@ CREATE TABLE item (
     shop_list_id INT,
     name TEXT NOT NULL,
     note TEXT,
-    category TEXT
+    category TEXT,
+    cost REAL
 )
 SQL
 
