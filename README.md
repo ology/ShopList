@@ -1,6 +1,8 @@
 # ShopList
 Perl5 Dancer2 Interactive Shopping List App
 
+* This app has been superceded by https://github.com/ology/Mojo-Shopping-List
+
 Before being able to run the app, you must first create the database and users:
 
 > perl bin/00-db-create.pl
